@@ -49,6 +49,7 @@ body {
 input[type="text"],
 input[type="password"] {
   width: 100%;
+  height: 50px;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -81,18 +82,20 @@ button:hover {
 form {
   border: 3px solid #f1f1f1;
   padding: 20px;
-  max-width: 400px;
-  box-sizing: border-box;
+  
 }
 
 p {
   text-align: right !important;
- padding-right: 40px;
+ padding-right: 80px;
  padding-bottom: 20px;
   font-size: 30px;
 }
 b{
     letter-spacing: 2px;
     font-size: 20px;
+}
+.col-md-6 {
+  width: 100%; 
 }
 </style>

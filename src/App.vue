@@ -1,10 +1,6 @@
-<script setup>
-import Login from './components/Login.vue'
-</script>
-
 <template>
   <div>
-   
+    <Navigation />
     <router-view />
     <main>
       <Login />
@@ -12,7 +8,25 @@ import Login from './components/Login.vue'
   </div>
 </template>
 
-<style scoped>
+
+
+<script >
+import Login from './components/Login.vue'
+import Navigation from './components/Navigation.vue'
+
+export default {
+
+  mounted(){
+    this.store.localLogin();
+  },
+  name: "App",
+  components: {
+    Navigation
+  }
+};
+</script>
+
+<style >
 header {
   line-height: 1.5;
 }
@@ -32,4 +46,5 @@ header {
     flex-wrap: wrap;
   }
 }
+
 </style>
