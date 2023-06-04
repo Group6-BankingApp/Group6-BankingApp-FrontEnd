@@ -17,7 +17,11 @@
             <button type='button' @click="login" class="btn btn-primary">LOGIN</button>
           </form>
         </div>
+        
       </div>
+      <div class="register-link">
+            Don't have an account? <router-link to="/register">Register an Account</router-link>
+          </div>
     </div>
   </section>
 </template>
