@@ -21,8 +21,8 @@
             <label for="email">Email:</label>
             <input type="email" v-model="email" class="value" />
           </div>
-        </div>
-        <div class="mb-3">
+        </div><br>
+        <div class="mb-3" style="float: right;">
             <div class="field">
               <button @click="register" class="registerbutton">Register</button>
             </div>
@@ -50,7 +50,7 @@
   };
   </script>
   
-  <style>
+  <style scoped>
 .form-container {
   display: flex;
   justify-content: center;
@@ -96,5 +96,9 @@ label {
   display: inline-block;
   font-size: 16px;
 }
+h2{
+    color: #0f642b;
+    text-align: center;
+    }
 </style>
   
