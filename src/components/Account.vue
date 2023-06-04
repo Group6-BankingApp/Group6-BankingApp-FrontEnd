@@ -12,6 +12,10 @@
           <div class="value">{{ lastname }}</div>
         </div>
         <div class="field">
+          <label for="balaemailnce">Email:</label>
+          <div class="value">{{ email }}</div>
+        </div>
+        <div class="field">
           <label for="balance">Balance:</label>
           <div class="value">{{ balance }}</div>
         </div>
@@ -72,6 +76,7 @@
       return {
         name: 'John',
         lastname: 'Doe',
+        email: 'johndoe@gmail.com',
         balance: 2000,
         cardNumber: '1234 5678 9012 3456',
         status: 'Active'
