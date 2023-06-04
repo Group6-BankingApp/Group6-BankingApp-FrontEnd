@@ -16,6 +16,10 @@
           <div class="value">{{ email }}</div>
         </div>
         <div class="field">
+          <label for="iban">IBAN:</label>
+          <div class="value">{{ iban }}</div>
+        </div>
+        <div class="field">
           <label for="balance">Balance:</label>
           <div class="value">{{ balance }}</div>
         </div>
@@ -31,7 +35,7 @@
     </div>
   </template>
   
-  <style>
+  <style scoped>
   .form-container {
   display: flex;
   justify-content: center; 
@@ -70,13 +74,14 @@
     }
   </style>
   
-  <script>
+  <script >
   export default {
     data() {
       return {
         name: 'John',
         lastname: 'Doe',
         email: 'johndoe@gmail.com',
+        iban: 'NL01INHO9501054837',
         balance: 2000,
         cardNumber: '1234 5678 9012 3456',
         status: 'Active'
