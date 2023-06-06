@@ -10,31 +10,24 @@
               <label for="inputEmail" class="form-label">Email</label>
               <input id="email" v-model="email" type="text" class="form-control" />
             </div>
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Password</label>
-              <input type="password" v-model="password" class="form-control" id="password" />
+            <div class="register-link">
+                Don't have an account? <router-link to="/register">Register an Account</router-link>
             </div>
-            <button type='button' @click="login" class="btn btn-primary">LOGIN</button>
-          </form>
         </div>
-        
-      </div>
-      <div class="register-link">
-            Don't have an account? <router-link to="/register">Register an Account</router-link>
-          </div>
-    </div>
-  </section>
+    </section>
 </template>
 
 <script>
+import axios from 'axios';
+//import axios from '../axios-auth';
 
 export default {
     name: "Login",
     props: {},
     data: function() {
         return {
-            email: "email",
-            password: "password"
+            email: "example@example.com",
+            password: "123"
         };
     },
     methods: {

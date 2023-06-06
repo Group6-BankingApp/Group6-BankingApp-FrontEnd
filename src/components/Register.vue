@@ -39,13 +39,18 @@
               <button :class="{'disabled': isButtonDisabled, 'enabled': !isButtonDisabled}"
               :disabled="isButtonDisabled" @click="register">Register</button>
             </div>
+            <div class="mb-3">
+              <div class="field">
+                <label for="lastname">Lastname:</label>
+                <input type="text" v-model="registerUser.lastname" class="value" />
+                <div class="error-message" v-if="validationErrors.lastname">{{ validationErrors.lastname }}</div>
+              </div>
             </div>
             <div v-if="isButtonDisabled" class="message">
                 Please fill in all fields correctly.
               </div>
         </div>
       </div>
-    </div>
     </div>
   </template>
   
