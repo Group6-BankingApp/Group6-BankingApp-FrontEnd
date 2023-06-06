@@ -38,7 +38,8 @@
   </template>
   
   <script>
-  import axios from 'axios';
+  //import axios from 'axios';
+  import axios from '../axios-auth';
 
   export default {
     data() {
@@ -83,7 +84,7 @@
       return; // Stop form submission if errors exist
     }
 
-    // axios.post("http://localhost/register", this.registerUser)
+    // axios.post("/register", this.registerUser)
     //   .then(result => { console.log(result.data);
     //     this.$router.push('/registerConfirmation'); 
     //   })
@@ -146,6 +147,10 @@ label {
 h2{
     color: #0f642b;
     text-align: center;
+    }
+.error-message {
+    color: red;
+    font-size: 15px;
     }
 </style>
   
