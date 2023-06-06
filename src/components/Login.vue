@@ -1,45 +1,73 @@
 <template>
     <section>
-    <div class="container">
-      <div class="row">
-    
-        <div class="col-md-6">
-            <p>Retakers Bank</p>
-          <form>
-            <div class="mb-3">
-              <label for="inputEmail" class="form-label">Email</label>
-              <input id="email" v-model="email" type="text" class="form-control" />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Retakers Bank</p>
+                    <form>
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label">Email</label>
+                            <input id="email" v-model="email" type="text" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">Password</label>
+                            <input type="password" v-model="password" class="form-control" id="password" />
+                        </div>
+                        <button type='button' @click="login" class="btn btn-primary">LOGIN</button>
+                    </form>
+                </div>
             </div>
-            <div class="mb-3">
-              <label for="inputPassword" class="form-label">Password</label>
-              <input type="password" v-model="password" class="form-control" id="password" />
+            <div class="register-link">
+                Don't have an account? <router-link to="/register">Register an Account</router-link>
             </div>
-            <button type='button' @click="login" class="btn btn-primary">LOGIN</button>
-          </form>
         </div>
-        
-      </div>
-      <div class="register-link">
-            Don't have an account? <router-link to="/register">Register an Account</router-link>
-          </div>
-    </div>
-  </section>
+    </section>
 </template>
 
 <script>
+import axios from 'axios';
+//import axios from '../axios-auth';
 
 export default {
     name: "Login",
     props: {},
     data: function() {
         return {
-            email: "email",
-            password: "password"
+            email: "example@example.com",
+            password: "123"
         };
     },
     methods: {
-       
-    }
+  login() {
+
+    // Mock a successful login since endpoint is not done yet, once implemented delete this few lines and uncomment the axios thingy
+    const mockResponse = {
+      data: {
+        jwt: 'jwt',
+      },
+    };
+    this.handleLoginResponse(mockResponse);
+  },
+  handleLoginResponse(response) {
+    console.log(response);
+    this.$router.push('/account');
+
+    // axios.post("http://localhost/users/login", {
+    //     email: this.email, 
+    //     password: this.password,
+    //   })
+    //   .then((res) => {
+    //     console.log(res);
+    //     // alert(res.data.jwt);
+    //     this.$router.push('/account');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     console.log(error.response);
+    //   });
+  },
+}
+
 }
 </script>
 
