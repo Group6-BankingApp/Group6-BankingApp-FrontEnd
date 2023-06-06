@@ -13,7 +13,10 @@
             <div class="register-link">
                 Don't have an account? <router-link to="/register">Register an Account</router-link>
             </div>
+          </form>
         </div>
+      </div>
+    </div>
     </section>
 </template>
 
