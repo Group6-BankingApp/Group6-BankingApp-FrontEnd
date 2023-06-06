@@ -17,7 +17,7 @@ import Navigation from './components/Navigation.vue'
 export default {
 
   mounted(){
-    this.store.localLogin();
+    //this.store.localLogin();
   },
   name: "App",
   components: {

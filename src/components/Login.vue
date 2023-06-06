@@ -4,7 +4,7 @@
       <div class="row">
     
         <div class="col-md-6">
-            <p>Retakers Bank</p>
+            <p>Bank Application</p>
           <form>
             <div class="mb-3">
               <label for="inputEmail" class="form-label">Email</label>
@@ -38,7 +38,7 @@ export default {
         };
     },
     methods: {
-       
+      
     }
 }
 </script>
