@@ -10,6 +10,13 @@
               <label for="inputEmail" class="form-label">Email</label>
               <input id="email" v-model="email" type="text" class="form-control" />
             </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Password</label>
+              <input id="password" v-model="password" type="password" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <button type="button" class="btn btn-primary" @click="login">Login</button>
+            </div>
             <div class="register-link">
                 Don't have an account? <router-link to="/register">Register an Account</router-link>
             </div>
@@ -29,12 +36,25 @@ export default {
     props: {},
     data: function() {
         return {
-            email: "example@example.com",
+            username: "example@example.com",
             password: "123"
         };
     },
     methods: {
-      
+        login: function() {
+            axios
+                .post("/users/login", {
+                    username: this.username,
+                    password: this.password
+                })
+                .then(response => {
+                    console.log(response);
+                    
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     }
 }
 </script>

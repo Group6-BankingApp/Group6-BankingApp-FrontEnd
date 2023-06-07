@@ -45,11 +45,11 @@
               >
                 Register
               </button>
-              <div v-if="isButtonDisabled" class="message">
-                Please fill in all fields correctly.
-              </div>
             </div>
           </div>
+          <div v-if="isButtonDisabled" class="message">
+                Please fill in all fields correctly.
+              </div>
         </div>
       </div>
     </div>
