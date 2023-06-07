@@ -6,6 +6,7 @@ import Register from '../components/Register.vue';
 import RegisterConfirmation from '../components/RegisterConfirmation.vue';
 import Transfer from '../components/Transfer.vue';
 import UserList from '../components/users/UserList.vue';
+import AccountList from '../components/accounts/AccountList.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,6 +18,7 @@ const router = createRouter({
       { path: '/registerConfirmation', component: RegisterConfirmation },
       { path: '/transfer', component: Transfer },
       { path: '/userlist', component: UserList },
+      { path: '/accounts', component: AccountList },
 
     ]
   })
