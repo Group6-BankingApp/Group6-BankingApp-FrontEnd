@@ -8,7 +8,7 @@
           <form>
             <div class="mb-3">
               <label for="inputEmail" class="form-label">Email</label>
-              <input id="email" v-model="email" type="text" class="form-control" />
+              <input id="email" v-model="username" type="text" class="form-control" />
             </div>
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Password</label>
@@ -28,35 +28,33 @@
 </template>
 
 <script>
-import axios from 'axios';
-//import axios from '../axios-auth';
+import axios from '../axios-auth';
+import { useUserStoreSession } from '../stores/userstoresession';
 
 export default {
-    name: "Login",
-    props: {},
-    data: function() {
+  setup() {
+    return {
+      store: useUserStoreSession()
+    };
+  },
+  name: "Login",
+    data() {
         return {
-            username: "example@example.com",
-            password: "123"
+            username: "",
+            password: "",
+            errorMessage: ""
         };
     },
     methods: {
-        login: function() {
-            axios
-                .post("/users/login", {
-                    username: this.username,
-                    password: this.password
-                })
-                .then(response => {
-                    console.log(response);
-                    
-                })
-                .catch(error => {
-                    console.log(error);
-                });
-        }
-    }
-}
+    login() {
+      this.store.login(this.username, this.password)
+      .then(()=>
+      this.$router.push("/" )
+      )
+      .catch((error) => this.errorMessage = error)
+    },
+  }
+};
 </script>
 
 
