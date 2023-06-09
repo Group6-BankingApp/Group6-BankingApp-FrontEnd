@@ -17,7 +17,7 @@
               >Transfer</router-link
             >
           </li>
-          <li class="nav-item">
+          <li v-if="store.isAuthenticated" class="nav-item">
             <router-link to="/logout" class="nav-link" active-class="active"
               >Logout</router-link
             >
@@ -28,7 +28,14 @@
   </template>
   
   <script>
+  import { useUserStoreSession } from '../stores/userstoresession';
+
   export default {
+    setup() {
+    return {
+      store: useUserStoreSession()
+    };
+  },
     name: "Navigation",
   };
   </script>
