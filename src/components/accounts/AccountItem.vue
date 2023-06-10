@@ -9,7 +9,7 @@
           <p><strong>Phone Number:</strong> {{ account.user.phoneNumber }}</p>
           <p><strong>Account Type:</strong> {{ account.accountType }}</p>
           <p><strong>Card UUID:</strong> {{ account.cardUUID }}</p>
-          <p><strong>PIN:</strong> {{ account.pin }}</p>
+          <p><strong>Balance:</strong> {{ account.balance }}</p>
           <p><strong>Daily Limit:</strong> {{ account.dailyLimit }}</p>
           <hr>
         </li>
