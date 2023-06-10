@@ -1,9 +1,8 @@
 <template>
   <div>
     <Navigation />
-    <router-view />
     <main>
-      <Login />
+      <router-view />
     </main>
   </div>
 </template>
