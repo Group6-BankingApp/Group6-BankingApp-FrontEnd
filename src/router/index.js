@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Login from '../components/Login.vue';
-import Account from '../components/Account.vue';
+import Account from '../components/accounts/AccountPage.vue';
 import Register from '../components/Register.vue';
 import RegisterConfirmation from '../components/RegisterConfirmation.vue';
 import Transfer from '../components/Transfer.vue';

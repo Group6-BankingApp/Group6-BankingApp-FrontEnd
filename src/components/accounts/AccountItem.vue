@@ -23,10 +23,7 @@
   export default {
     name: "AccountItem",
     props: {
-      account: {
-        type: Object,
-        required: true
-      }
+      account: Object
     }
   };
   </script>
