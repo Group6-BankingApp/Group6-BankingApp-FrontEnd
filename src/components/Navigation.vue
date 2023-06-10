@@ -13,6 +13,11 @@
             >
           </li>
           <li class="nav-item">
+            <router-link to="/atm" class="nav-link" active-class="active"
+              >ATM</router-link
+            >
+          </li>
+          <li class="nav-item">
             <router-link to="/transfer" class="nav-link" active-class="active"
               >Transfer</router-link
             >
