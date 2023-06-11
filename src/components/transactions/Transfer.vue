@@ -6,6 +6,14 @@
       <div class="card">
         <div class="card-content">
           <div class="row">
+  <div class="col">
+    <label for="pin">PIN:</label>
+  </div>
+  <div class="col">
+    <input type="password" v-model="pin" class="value" />
+  </div>
+</div>
+          <div class="row">
             <div class="col">
               <label for="remaining-balance">Remaining transfer balance:</label>
             </div>
@@ -15,36 +23,46 @@
           </div>
         </div>
 
-      <hr />
+        <hr />
+        <div class="row">
+          <div class="col">
+            <label for="amount">Amount:</label>
+          </div>
+          <div class="col">
+            <input type="number" v-model="amount" class="value" />
+          </div>
+        </div>
 
-      <div class="row">
-        <div class="col">
-          <label for="transfer-from">Transfer From:</label>
+        <div class="row">
+          <div class="col">
+            <label for="transfer-from">Transfer From:</label>
+          </div>
+          <div class="col">
+            <input type="text" v-model="transferFrom" class="value" />
+          </div>
         </div>
-        <div class="col">
-          <input type="text" v-model="transferFrom" class="value" />
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col">
-          <label for="transfer-to">Transfer To:</label>
+        <div class="row">
+          <div class="col">
+            <label for="transfer-to">Transfer To:</label>
+          </div>
+          <div class="col">
+            <input type="text" v-model="transferTo" class="value" />
+          </div>
         </div>
-        <div class="col">
-          <input type="text" v-model="transferTo" class="value" />
+
+      
+        <br><br>
+        <div class="transfer-card button">
+          <button @click="performTransfer">Transfer</button>
         </div>
       </div>
-      <br><br>
-      <div class="transfer-card button">
-        <button @click="performTransfer">Transfer</button>
-      </div>
-    </div>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../../axios-auth.js';
 
 export default {
   data() {
@@ -52,11 +70,13 @@ export default {
       balance: null,
       transferFrom: '',
       transferTo: '',
+      amount: 0,
+      pin: ''
     };
   },
   mounted() {
     axios
-      .get('balance')
+      .get('/balance')
       .then((response) => {
         this.balance = response.data.balance;
       })
@@ -69,10 +89,12 @@ export default {
       const transaction = {
         transferFrom: this.transferFrom,
         transferTo: this.transferTo,
+        amount: this.amount,
+        pin: this.pin
       };
 
       axios
-        .post('transfer', transaction)
+        .post('/transactions/transfer', transaction)
         .then((response) => {
           console.log(response.data);
         })
