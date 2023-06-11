@@ -6,13 +6,13 @@
       <div class="card">
         <div class="card-content">
           <div class="row">
-  <div class="col">
-    <label for="pin">PIN:</label>
-  </div>
-  <div class="col">
-    <input type="password" v-model="pin" class="value" />
-  </div>
-</div>
+            <div class="col">
+              <label for="pin">PIN:</label>
+            </div>
+            <div class="col">
+              <input type="password" v-model="pin" class="value" />
+            </div>
+          </div>
           <div class="row">
             <div class="col">
               <label for="remaining-balance">Remaining transfer balance:</label>
@@ -51,20 +51,25 @@
           </div>
         </div>
 
-      
+
         <br><br>
         <div class="transfer-card button">
           <button @click="performTransfer">Transfer</button>
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import axios from '../../axios-auth.js';
+import Footer from '../../components/Footer.vue';
 
 export default {
+  components: {
+    Footer
+  },
   data() {
     return {
       balance: null,
@@ -163,9 +168,11 @@ h2 {
   margin-top: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
+
 .transfer-card button:hover {
-    background-color: #1a862c;
-  }
+  background-color: #1a862c;
+}
+
 .row {
   display: flex;
   align-items: center;

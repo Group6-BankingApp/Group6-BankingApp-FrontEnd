@@ -23,15 +23,20 @@
           </form>
         </div>
       </div>
+      <Footer />  
     </div>
     </section>
 </template>
 
 <script>
 import axios from '../axios-auth';
+import Footer from '../components/Footer.vue';
 import { useUserStoreSession } from '../stores/userstoresession';
 
 export default {
+  components: {
+    Footer 
+  },
   setup() {
     return {
       store: useUserStoreSession()
