@@ -15,17 +15,17 @@ export const useUserStoreSession = defineStore("usersession", {
             this.username = localStorage.getItem('username');
             axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt;
         },
-        login: (username, password) => {
+        login (username, password)  {
             return new Promise((resolve, reject) => {
             axios
                 .post('users/login', {
                     username: username,
                     password: password
                 })
-                .then(response => {
-                    this.jwt = response.data.jwt;
+                .then((response) => {
+                    console.log (response);
+                    this.jwt = response.data.token;
                     this.username = response.data.username;
-
                     localStorage.setItem('jwt', this.jwt);
                     localStorage.setItem('username', this.username);
 

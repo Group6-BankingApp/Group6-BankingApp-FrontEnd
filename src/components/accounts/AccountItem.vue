@@ -11,6 +11,8 @@
           <p><strong>Card UUID:</strong> {{ account.cardUUID }}</p>
           <p><strong>Balance:</strong> {{ account.balance }}</p>
           <p><strong>Daily Limit:</strong> {{ account.dailyLimit }}</p>
+          <p><strong>Balance:</strong> {{ account.balance }}</p>
+          <p><strong>Absolute Limit:</strong> {{ account.absoluteLimit }}</p>
           <hr>
         </li>
       </ul>
@@ -21,10 +23,7 @@
   export default {
     name: "AccountItem",
     props: {
-      account: {
-        type: Object,
-        required: true
-      }
+      account: Object
     }
   };
   </script>

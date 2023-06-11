@@ -14,7 +14,6 @@ import Login from './components/Login.vue'
 import Navigation from './components/Navigation.vue'
 
 export default {
-
   mounted(){
     this.store.localLogin();
   },
