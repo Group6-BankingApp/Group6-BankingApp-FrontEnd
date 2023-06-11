@@ -58,13 +58,18 @@
         </div>
       </div>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import axios from '../../axios-auth.js';
+import Footer from '../../components/Footer.vue';
 
 export default {
+  components: {
+    Footer
+  },
   data() {
     return {
       balance: null,
