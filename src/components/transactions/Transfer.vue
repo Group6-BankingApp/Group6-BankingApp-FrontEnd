@@ -99,7 +99,7 @@ export default {
       };
 
       axios
-        .post('/transactions/transfer', transaction)
+        .post('/transactions', transaction)
         .then((response) => {
           console.log(response.data);
         })

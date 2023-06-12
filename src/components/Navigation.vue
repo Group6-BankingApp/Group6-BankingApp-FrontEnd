@@ -23,6 +23,11 @@
             >
           </li>
           <li class="nav-item">
+            <router-link to="/transactions" class="nav-link" active-class="active"
+              >Transaction</router-link
+            >
+          </li>
+          <li class="nav-item">
             <router-link to="/logout" class="nav-link" active-class="active"
               >Logout</router-link
             >
