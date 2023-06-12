@@ -12,7 +12,6 @@
 <script >
 import { useUserStoreSession } from './stores/userstoresession';
 import Navigation from './components/Navigation.vue'
-import { useUserStoreSession } from './stores/userstoresession';
 
 export default {
   setup() {
@@ -20,8 +19,7 @@ export default {
     return { store };
   },
   mounted(){
-    const store = useUserStoreSession();
-    store.localLogin();
+    this.store.localLogin();
   },
   name: "App",
   components: {
