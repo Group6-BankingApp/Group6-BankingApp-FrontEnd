@@ -9,15 +9,19 @@
 
 <script >
 import AccountItem from './AccountItem.vue';
+
 import axios from '../../axios-auth.js';
 export default {
     name: "AccountPage",
     props: {},
+=======
+
     components: {
         AccountItem
     },
     data() {
     return {
+
         accounts: [],
     };
   },
@@ -33,6 +37,8 @@ export default {
                 .get('/accounts/customer/'+userid)
                 .then((response) => {
                     this.accounts = response.data;
+
+       
                 })
                 .catch((error) => {
                     console.log(error);
