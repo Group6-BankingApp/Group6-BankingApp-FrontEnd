@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Login from '../components/Login.vue';
-import Account from '../components/accounts/AccountPage.vue';
+
+import AccountPage from '../components/accounts/AccountPage.vue';
+
+
 import Register from '../components/Register.vue';
 import RegisterConfirmation from '../components/RegisterConfirmation.vue';
 import Transfer from '../components/transactions/Transfer.vue';
@@ -16,7 +19,7 @@ const router = createRouter({
     routes: [
         { path: '/', component: Login },
       { path: '/login', component: Login },
-      { path: '/account', component: Account },
+      { path: '/account', component: AccountPage },
       { path: '/register', component: Register }, 
       { path: '/registerConfirmation', component: RegisterConfirmation },
       { path: '/transfer', component: Transfer },

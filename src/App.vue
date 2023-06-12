@@ -10,11 +10,15 @@
 
 
 <script >
-import Login from './components/Login.vue'
+import { useUserStoreSession } from './stores/userstoresession';
 import Navigation from './components/Navigation.vue'
 import { useUserStoreSession } from './stores/userstoresession';
 
 export default {
+  setup() {
+    const store = useUserStoreSession();
+    return { store };
+  },
   mounted(){
     const store = useUserStoreSession();
     store.localLogin();
