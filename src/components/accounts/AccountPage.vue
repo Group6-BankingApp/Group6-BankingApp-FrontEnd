@@ -14,7 +14,6 @@ import axios from '../../axios-auth.js';
 export default {
     name: "AccountPage",
     props: {},
-=======
 
     components: {
         AccountItem
