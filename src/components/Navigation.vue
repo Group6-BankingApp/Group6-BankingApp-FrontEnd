@@ -9,7 +9,7 @@
           </li>      
           <li class="nav-item">
             <router-link to="/account" class="nav-link" active-class="active"
-              >Acount</router-link
+              >Account</router-link
             >
           </li>
           <li class="nav-item">
@@ -22,7 +22,17 @@
               >Transfer</router-link
             >
           </li>
-          <li v-if="store.isAuthenticated" class="nav-item">
+          <li class="nav-item">
+            <router-link to="/transactions" class="nav-link" active-class="active"
+              >Transaction</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link to="/debitcards" class="nav-link" active-class="active"
+              >Debit cards</router-link
+            >
+          </li>
+          <li class="nav-item">
             <router-link to="/logout" class="nav-link" active-class="active"
               >Logout</router-link
             >
@@ -33,14 +43,7 @@
   </template>
   
   <script>
-  import { useUserStoreSession } from '../stores/userstoresession';
-
   export default {
-    setup() {
-    return {
-      store: useUserStoreSession()
-    };
-  },
     name: "Navigation",
   };
   </script>

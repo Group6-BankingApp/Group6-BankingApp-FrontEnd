@@ -15,15 +15,20 @@
         <div class="atm-buttons">
           <button @click="deposit" class="atm-button" style="float: left;">Deposit</button>
           <button @click="withdraw" class="atm-button" style="float: right;">Withdraw</button>
-      </div>       
+      </div>  
+      <Footer />     
     </div>
   
   </template>
   
   <script>
   import axios from '../../axios-auth.js';
+  import Footer from '../../components/Footer.vue';
   
   export default {
+    components: {
+    Footer 
+  },
     data() {
       return {
         iban: '',

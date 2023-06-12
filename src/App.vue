@@ -2,7 +2,7 @@
   <div>
     <Navigation />
     <main>
-      <router-view />
+      <router-view></router-view>
     </main>
   </div>
 </template>
@@ -12,6 +12,7 @@
 <script >
 import { useUserStoreSession } from './stores/userstoresession';
 import Navigation from './components/Navigation.vue'
+import { useUserStoreSession } from './stores/userstoresession';
 
 export default {
   setup() {
@@ -19,7 +20,8 @@ export default {
     return { store };
   },
   mounted(){
-    this.store.localLogin();
+    const store = useUserStoreSession();
+    store.localLogin();
   },
   name: "App",
   components: {
