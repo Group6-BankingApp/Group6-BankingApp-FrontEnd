@@ -56,11 +56,13 @@
 .container-fluid {
   padding-left: 0;
   padding-right: 0;
+  margin-bottom: 0;
 }
 
 .navbar-nav {
   width: 100%;
   justify-content: space-around;
+
 }
 
   </style>
