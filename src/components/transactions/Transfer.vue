@@ -81,7 +81,7 @@ export default {
   },
   mounted() {
     axios
-      .get('/balance')
+      .get('/accounts/balance')
       .then((response) => {
         this.balance = response.data.balance;
       })
