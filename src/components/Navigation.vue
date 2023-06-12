@@ -28,6 +28,11 @@
             >
           </li>
           <li class="nav-item">
+            <router-link to="/debitcards" class="nav-link" active-class="active"
+              >Debit cards</router-link
+            >
+          </li>
+          <li class="nav-item">
             <router-link to="/logout" class="nav-link" active-class="active"
               >Logout</router-link
             >
