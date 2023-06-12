@@ -2,35 +2,37 @@
     <br><br><h2>Account Details</h2><br>
     <div class="account-list">
       <ul>
-        <account-item :account="account"  />
+        <account-item  v-for="account in accounts" :key="account.iban" :account="account"  />
       </ul>
     </div><br><br>
   </template>
 
 <script >
 import AccountItem from './AccountItem.vue';
+import axios from '../../axios-auth.js';
 export default {
-
+    name: "AccountPage",
+    props: {},
     components: {
         AccountItem
     },
     data() {
     return {
-        account: null,
+        accounts: [],
     };
   },
     mounted() {
-        const iban= localStorage.getItem('iban');
-        if (iban) {
-            this.getAccount(iban);
+        const userid= localStorage.getItem('userid');
+        if (userid) {
+            this.getAccount(userid);
         }
     },
     methods: {
-        getAccount(iban) {
+        getAccount(userid) {
             axios
-                .get('/accounts/'+iban)
+                .get('/accounts/customer/'+userid)
                 .then((response) => {
-                    this.account = response.data;
+                    this.accounts = response.data;
                 })
                 .catch((error) => {
                     console.log(error);
