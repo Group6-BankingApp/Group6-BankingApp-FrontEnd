@@ -54,6 +54,7 @@
 .container-fluid {
   padding-left: 0;
   padding-right: 0;
+  margin-bottom: 0;
 }
 .nav-item h7:hover {
   color: #fff;
@@ -62,6 +63,7 @@
 .navbar-nav {
   width: 100%;
   justify-content: space-around;
+
 }
 
   </style>
