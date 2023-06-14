@@ -28,7 +28,7 @@ const router = createRouter({
       { path: '/atm', component: ATM },
       { path: '/transactions', component: Transaction },  
       { path: '/debitcards', component: DebitCardList },
-
+      
     ]
   })
   
