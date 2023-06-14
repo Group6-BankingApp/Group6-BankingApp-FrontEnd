@@ -1,11 +1,16 @@
 <template>
   <div class="card">
-    <h2 class="page-title">Account Details</h2><br><br>
-    <div class="account-list">
-      <ol class="numbered-list"><br>
-        <account-item v-for="account in accounts" :key="account.iban" :account="account" />
-      </ol> 
-    </div><br><br><br><br>
+    <div v-if="accounts.length > 0">
+      <h2 class="page-title">{{ accounts[0].user.firstName+" "+accounts[0].user.lastName }}</h2><br><br>
+      <div class="account-list">
+        <ol class="numbered-list"><br>
+          <account-item v-for="account in accounts" :key="account.iban" :account="account" />
+        </ol> 
+      </div><br><br><br><br>
+    </div>
+    <div v-else>
+      <h2 class="page-title">No accounts found</h2>
+    </div>
     <Footer />
   </div>
 </template>
@@ -31,9 +36,9 @@ export default {
   },
 
   mounted() {
-    const userid = localStorage.getItem('userid');
-    if (userid) {
-      this.getAccount(userid);
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      this.getAccount(user.id);
     }
   },
 

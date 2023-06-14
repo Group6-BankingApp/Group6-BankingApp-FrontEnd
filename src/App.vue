@@ -48,7 +48,7 @@ export default {
       }
       setTimeout(() => {
             this.checkTokenValifity();
-          }, 5000);
+          }, 60000);
     },
   },
 };
