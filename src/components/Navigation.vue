@@ -33,9 +33,7 @@
             >
           </li>
           <li class="nav-item">
-            <router-link to="/logout" class="nav-link" active-class="active"
-              >Logout</router-link
-            >
+              <h7 class="nav-link" active-class="active">Logout</h7>
           </li>
        
       </div>
@@ -58,7 +56,10 @@
   padding-right: 0;
   margin-bottom: 0;
 }
-
+.nav-item h7:hover {
+  color: #fff;
+  cursor: pointer;
+}
 .navbar-nav {
   width: 100%;
   justify-content: space-around;

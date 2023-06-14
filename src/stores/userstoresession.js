@@ -4,8 +4,7 @@ import axios from "../axios-auth";
 export const useUserStoreSession = defineStore("usersession", {
     state: () => ({
         jwt: '',
-        username: '',
-        userid:'',
+        user: '',
     }),
     getters: {
         isAuthenticated: (state) => {state.jwt != ''},
@@ -13,8 +12,7 @@ export const useUserStoreSession = defineStore("usersession", {
     actions: {
         localLogin () {
             this.jwt = localStorage.getItem('jwt');
-            this.username = localStorage.getItem('username');
-            this.userid = localStorage.getItem('userid');
+            this.user= JSON.parse(localStorage.getItem('user'));
             if (this.jwt != ''  && this.jwt != null) {
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt;
             }
@@ -29,11 +27,9 @@ export const useUserStoreSession = defineStore("usersession", {
                 .then((response) => {
                     console.log (response);
                     this.jwt = response.data.token;
-                    this.username = response.data.username;
-                    this.userid = response.data.userid;
+                    this.user= response.data.userDTO2;
                     localStorage.setItem('jwt', this.jwt);
-                    localStorage.setItem('username', this.username);
-                    localStorage.setItem('userid', this.userid);
+                    localStorage.setItem('user',JSON.stringify(this.user));
 
                     axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt;
                     resolve();
@@ -42,6 +38,13 @@ export const useUserStoreSession = defineStore("usersession", {
                     console.log(error);
                     reject(error.response.data.errorMessage);
                 });
-            })},
+        })},
+        logout () {
+            this.jwt = '';
+            this.user = '';
+            localStorage.removeItem('jwt');
+            localStorage.removeItem('user');
+            delete axios.defaults.headers.common['Authorization'];
+        },
     }
 })

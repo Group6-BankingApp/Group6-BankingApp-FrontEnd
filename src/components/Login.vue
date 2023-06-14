@@ -61,7 +61,7 @@ export default {
     login() {
       this.store
         .login(this.username, this.password)
-        .then(() => this.$router.push("/"))
+        .then(() => this.$router.push("/account"))
         .catch((error) => (this.errorMessage = error));
     },
   },
