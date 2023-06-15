@@ -4,72 +4,46 @@
       <div class="card filter-card">
         <h2>Transactions</h2> <br><br><br>
         <div class="card-body">
-          <label for="dateFrom">From:</label>
-          <input type="date" id="dateFrom" v-model="dateFrom" @change="fetchTransactions" />
-  
-          <label for="dateTo">To:</label>
-          <input type="date" id="dateTo" v-model="dateTo" @change="fetchTransactions" />
-        </div>
+          <div class="account-list">
+            <ol class="numbered-list">
+              <transaction-item v-for="transaction in transactions" :key="transaction.id" :transaction="transaction" />
+            </ol>
+          </div>
       </div>
-  
-      <div class="card" v-if="loading">
-        <div class="card-body">
-          Loading...
-        </div>
-      </div>
-  
-      <div class="card" v-if="!loading">
-        <div class="card-body">
-          <ul class="transactions"> <br>
-            <li v-for="transaction in transactions" :key="transaction.id">
-              {{ transaction.date }} - {{ transaction.description }} - {{ transaction.amount }}
-            </li> <br>
-          </ul>
-        </div>
-      </div>
-  
+
       <Footer />
-        </div>
+      </div>
+    </div>
     </div>
   </template>
   
   <script>
   import axios from '../../axios-auth.js';
   import Footer from '../../components/Footer.vue';
+  import TransactionItem from './TransactionItem.vue';
   
   export default {
     components: {
+      TransactionItem,
       Footer
     },
     data() {
       return {
         transactions: [],
-        dateFrom: '',
-        dateTo: '',
-        loading: false
       };
     },
     mounted() {
       this.fetchTransactions();
     },
     methods: {
-      fetchTransactions() {
-        this.loading = true;
-  
+      fetchTransactions() {  
         axios
-          .get('/transactions', {
-            params: {
-              dateFrom: this.dateFrom,
-              dateTo: this.dateTo
-            }
-          })
+          .get('/transactions/customer/' + this.$route.params.iban)
           .then(response => {
             this.transactions = response.data;
-            this.loading = false;
           })
           .catch(error => {
             console.error(error);
-            this.loading = false;
           });
       }
     }

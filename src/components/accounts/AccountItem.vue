@@ -16,7 +16,7 @@
           <p><strong>Absolute Limit:</strong> {{ account.absoluteLimit }}</p>
         </li>
       </ul>
-      <button @click="$router.push('/transaction')">See Transactions</button>
+      <button @click="viewTransactions">See Transactions</button>
       <br>
       <hr>
     </div>
@@ -27,6 +27,11 @@
     name: "AccountItem",
     props: {
       account: Object
+    },
+    methods: {
+      viewTransactions() {
+        this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
+      }
     }
   };
   </script>

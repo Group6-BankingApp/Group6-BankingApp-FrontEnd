@@ -26,7 +26,7 @@ const router = createRouter({
       { path: '/userlist', component: UserList },
       { path: '/accounts', component: AccountList },
       { path: '/atm', component: ATM },
-      { path: '/transactions', component: Transaction },  
+      { path: '/transactions/:iban', name: 'Transactions', component: Transaction },  
       { path: '/debitcards', component: DebitCardList },
       
     ]
