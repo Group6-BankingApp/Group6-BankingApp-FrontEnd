@@ -10,12 +10,12 @@
               <label for="pin">PIN:</label>
             </div>
             <div class="col">
-              <input type="password" v-model="pin" class="value" />
+              <input type="password" v-model="transactionDTO.pin" class="value" />
             </div>
           </div>
           <div class="row">
             <div class="col">
-              <label for="remaining-balance">Remaining transfer balance:</label>
+              <label for="remaining-balance">Balance:</label>
             </div>
             <div class="col">
               <div class="value">{{ balance }}</div>
@@ -29,16 +29,7 @@
             <label for="amount">Amount:</label>
           </div>
           <div class="col">
-            <input type="number" v-model="amount" class="value" />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col">
-            <label for="transfer-from">Transfer From:</label>
-          </div>
-          <div class="col">
-            <input type="text" v-model="transferFrom" class="value" />
+            <input type="number" v-model="transactionDTO.amount" class="value" />
           </div>
         </div>
 
@@ -47,7 +38,7 @@
             <label for="transfer-to">Transfer To:</label>
           </div>
           <div class="col">
-            <input type="text" v-model="transferTo" class="value" />
+            <input type="text" v-model="transactionDTO.receiverIban" class="value" />
           </div>
         </div>
 
@@ -72,40 +63,28 @@ export default {
   },
   data() {
     return {
-      balance: null,
-      transferFrom: '',
-      transferTo: '',
-      amount: 0,
-      pin: ''
+      transactionDTO: {
+        amount: 0,
+        receiverIban: '',
+        senderIban: this.$route.params.iban,
+        timeCreated: '',
+        userDTO2: JSON.parse(localStorage.getItem('user')),
+        pin: '',
+      },
     };
   },
   mounted() {
-    axios
-      .get('/accounts/balance')
-      .then((response) => {
-        this.balance = response.data.balance;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    
   },
   methods: {
     performTransfer() {
-      const transaction = {
-        transferFrom: this.transferFrom,
-        transferTo: this.transferTo,
-        amount: this.amount,
-        pin: this.pin
-      };
-
+      this.transactionDTO.timeCreated = new Date().toISOString();
       axios
-        .post('/transactions', transaction)
+        .post('/transactions', this.transactionDTO)
         .then((response) => {
-          console.log(response.data);
+          console.log(response);
+          this.$router.push({ name: 'Transactions', params: { iban: this.transactionDTO.senderIban } });
         })
-        .catch((error) => {
-          console.error(error);
-        });
     },
   },
 };

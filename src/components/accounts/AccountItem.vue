@@ -16,7 +16,10 @@
           <p><strong>Absolute Limit:</strong> {{ account.absoluteLimit }}</p>
         </li>
       </ul>
-      <button @click="viewTransactions">See Transactions</button>
+      <div class="tranactionButtons">
+        <button @click="viewTransactions">See Transactions</button>
+        <button @click="makeTransaction">Make a Transaction</button>
+      </div>
       <br>
       <hr>
     </div>
@@ -31,6 +34,12 @@
     methods: {
       viewTransactions() {
         this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
+      },
+      makeTransaction() {
+        this.$router.push({ name: 'Transfer', params: {
+            iban: this.account.iban, 
+            balance: this.account.balance 
+          }});
       }
     }
   };
@@ -43,6 +52,12 @@
   h3 {
     color: #0f642b;
     text-align: center;
+  }
+  .tranactionButtons {
+    text-align: center;
+  }
+  .tranactionButtons button {
+    margin: 0 10px;
   }
   </style>
   
