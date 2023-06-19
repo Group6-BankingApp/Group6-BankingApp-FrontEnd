@@ -22,7 +22,7 @@ const router = createRouter({
       { path: '/account', component: AccountPage },
       { path: '/register', component: Register }, 
       { path: '/registerConfirmation', component: RegisterConfirmation },
-      { path: '/transfer', component: Transfer },
+      { path: '/transfer/:iban/:balance', name: 'Transfer', component: Transfer },
       { path: '/userlist', component: UserList },
       { path: '/accounts', component: AccountList },
       { path: '/atm', component: ATM },
