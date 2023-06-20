@@ -1,152 +1,236 @@
 <template>
-    <div class="atm-card">
-      <h2 class="atm-title">Deposit/Withdraw</h2><br><br>
-      <div class="atm-info">
-        <label for="iban" class="atm-label">IBAN:</label>
-        <input type="text" id="iban" class="atm-input" v-model="iban" />      
-      </div><br>
-      <div>
-        <b class="atm-balance">Current Balance: {{ balance }}</b>
-      </div><br><br>     
-      <div class="atm-actions">
-        <label for="amount" class="atm-label">Amount:</label>
-        <input type="number" id="amount" class="atm-input" v-model="amount" />
+  <div class="atm-card">
+    <h2 class="atm-title">Deposit/Withdraw</h2><br><br>
+    <div class="atm-info">
+      <label for="bank-iban" class="atm-label">Bank IBAN:</label>
+      <input type="text" id="bank-iban" class="atm-input" :value="bankIban" disabled />
+    </div><br>
+    <div class="atm-info">
+      <label for="customer-iban" class="atm-label">Customer IBAN:</label>
+      <input type="text" id="customer-iban" class="atm-input" v-model="customerIban" />
+    </div><br>
+    <div>
+      <b class="atm-balance">Current Balance: {{ balance }}</b>
+    </div><br><br>
+    <div class="atm-actions">
+      <label for="amount" class="atm-label">Amount:</label>
+      <input type="number" id="amount" class="atm-input" v-model="amount" />
     </div> <br><br>
-        <div class="atm-buttons">
-          <button @click="deposit" class="atm-button" style="float: left;">Deposit</button>
-          <button @click="withdraw" class="atm-button" style="float: right;">Withdraw</button>
-      </div>  
-      <Footer />     
+    <div class="atm-buttons">
+      <button @click="deposit" class="atm-button" style="float: left;">Deposit</button>
+      <button @click="promptWithdrawal" class="atm-button" style="float: right;">Withdraw</button>
     </div>
-  
-  </template>
-  
-  <script>
-  import axios from '../../axios-auth.js';
-  import Footer from '../../components/Footer.vue';
-  
-  export default {
-    components: {
-    Footer 
+    <Footer />
+  </div>
+</template>
+
+<script>
+import axios from '../../axios-auth.js';
+import Footer from '../../components/Footer.vue';
+import { useUserStoreSession } from '../../stores/userstoresession';
+
+export default {
+  components: {
+    Footer
   },
-    data() {
-      return {
-        iban: '',
-        balance: null,
-        amount: 0
+  data() {
+    return {
+      bankIban: 'NL01INHO0000000001', // The fixed IBAN for the bank
+      customerIban: '', 
+      balance: null,
+      amount: 0
+    };
+  },
+  mounted() {
+    this.fetchBalance();
+  },
+  methods: {
+    fetchBalance() {
+      const userStore = useUserStoreSession();
+
+      const params = {
+        iban: this.bankIban, 
+        //token: userStore.jwt
       };
+      const headers = {
+        Authorization: userStore.jwt
+      };
+
+      axios
+        .get('/accounts/balance', { params,headers })
+        .then(response => {
+          this.balance = response.data.balance;
+        })
+        .catch(error => {
+          console.error(error);
+        });
     },
-    mounted() {
-      this.fetchBalance();
+    promptWithdrawal() {
+      const confirmWithdrawal = confirm('Are you sure you want to withdraw?');
+      if (confirmWithdrawal) {
+        this.withdraw();
+      } else {
+        alert('Withdrawal canceled.');
+      }
     },
-    methods: {
-      fetchBalance() {
-        const params = {
-          iban: this.iban,
-          pin: '123' // might need to make the pin dynamic
-        };
-  
-        axios.get('/balance', { params })
-          .then(response => {
-            this.balance = response.data;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
-      withdraw() {
+    withdraw() {
+      const isPinRequired = true;
+      if (isPinRequired) {
+        const enteredPin = prompt('Enter your PIN:');
+        if (enteredPin) {
+          const data = {
+            iban: this.customerIban,
+            amount: this.amount,
+            pin: enteredPin
+          };
+          const userStore = useUserStoreSession();
+          const headers = {
+            Authorization: userStore.jwt
+          };
+
+          axios
+            .post('/transactions/withdraw', data, { headers })
+            .then(response => {
+              // Check if the withdrawal was successful
+              if (response.status === 201) {
+                this.balance -= response.data.amount;
+                this.amount = 0;
+                alert('Withdrawal successful.');
+              } else {
+                alert('Failed to process withdrawal.');
+              }
+            })
+            .catch(error => {
+              console.error(error);
+              alert('An error occurred while processing the withdrawal.');
+            });
+        } else {
+          alert('Please enter your PIN first.');
+        }
+      } else {
         const data = {
-          iban: this.iban,
+          iban: this.customerIban,
           amount: this.amount
         };
-  
-        axios.post('/withdraw', data)
-          .then(response => {
-            this.balance -= response.data.amount;
-            this.amount = 0;
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      },
-      deposit() {
-        const data = {
-          iban: this.iban,
-          amount: this.amount
+        const userStore = useUserStoreSession();
+        const headers = {
+          Authorization: userStore.jwt
         };
-  
-        axios.post('deposit', data)
+
+        axios
+          .post('/transactions/withdraw', data, { headers })
           .then(response => {
-            this.balance += response.data.amount;
-            this.amount = 0;
+            // Check if the withdrawal was successful
+            if (response.status === 201) {
+              this.balance -= response.data.amount;
+              this.amount = 0;
+              alert('Withdrawal successful.');
+            } else {
+              alert('Failed to process withdrawal.');
+            }
           })
           .catch(error => {
             console.error(error);
+            alert('An error occurred while processing the withdrawal.');
           });
       }
+    },
+    deposit() {
+      const data = {
+        receiverIban: this.customerIban,
+        amount: this.amount
+      };
+
+      const userStore = useUserStoreSession();
+
+      axios
+        .post('/transactions/deposit', data, {
+          headers: {
+            Authorization: userStore.jwt 
+          }
+        })
+        .then(response => {
+          // Check if the deposit was successful
+          if (response.status === 201) {
+            this.balance += response.data.amount;
+            this.amount = 0;
+            alert('Deposit successful.');
+          } else {
+            alert('Failed to process deposit.');
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          alert('An error occurred while processing the deposit.');
+        });
     }
-  };
-  </script>
-  
-  
-  <style scoped>
-  .atm-card {
-    background-color: #bfe9cc;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    max-width: 800px;
-    margin: 0 auto;
-    height: 500px;
-    text-align: center;
-    margin-top: 90px;
   }
+};
+</script>
+
+
+
+
   
-  .atm-title {
-    text-align: center;
-    margin-bottom: 20px;
-  }
   
-  .atm-info {
-    margin-bottom: 20px;
-  }
-  
-  .atm-label {
-    font-weight: bold;
-  }
-  
-  .atm-input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .atm-balance {
-    margin-top: 10px;
-  }
-  
-  .atm-actions {  
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .atm-buttons {
-    margin-left: 10px;
-  }
-  
-  .atm-button {
-    padding: 8px 16px;
-    background-color:#0f642b;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  }
-  
-  .atm-button:hover {
-    background-color:  #1a862c;
-  }
-  </style>
+<style scoped>
+.atm-card {
+  background-color: #bfe9cc;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+  margin: 0 auto;
+  height: 600px;
+  text-align: center;
+  margin-top: 90px;
+}
+
+.atm-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.atm-info {
+  margin-bottom: 20px;
+}
+
+.atm-label {
+  font-weight: bold;
+}
+
+.atm-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.atm-balance {
+  margin-top: 10px;
+}
+
+.atm-actions {
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.atm-buttons {
+  margin-left: 10px;
+}
+
+.atm-button {
+  padding: 8px 16px;
+  background-color: #0f642b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.atm-button:hover {
+  background-color: #1a862c;
+}
+</style>
   
