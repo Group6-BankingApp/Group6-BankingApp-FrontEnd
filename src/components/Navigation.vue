@@ -32,7 +32,7 @@
               >Debit cards</router-link
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" @click="logout">
               <h7 class="nav-link" active-class="active">Logout</h7>
           </li>
        
@@ -41,8 +41,20 @@
   </template>
   
   <script>
+  import { useUserStoreSession } from '../stores/userstoresession';
   export default {
     name: "Navigation",
+    setup() {
+      return {
+        store: useUserStoreSession()
+      };
+    },
+    methods: {
+      logout() {
+        this.store.logout();
+        this.$router.push("/");
+      }
+    }
   };
   </script>
   
