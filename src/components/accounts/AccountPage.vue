@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div v-if="accounts.length > 0">
-      <h2 class="page-title">{{ accounts[0].user.firstName+" "+accounts[0].user.lastName }}</h2><br><br>
+      <h2 class="page-title">{{ user.firstName+" "+ user.lastName }}</h2><br><br>
       <div class="account-list">
         <ol class="numbered-list"><br>
           <account-item v-for="account in accounts" :key="account.iban" :account="account" />
@@ -19,6 +19,7 @@
 import AccountItem from './AccountItem.vue';
 import axios from '../../axios-auth.js';
 import Footer from '../../components/Footer.vue';
+import { useUserStoreSession } from '../../stores/userstoresession';
 
 export default {
   name: "AccountPage",
@@ -28,16 +29,21 @@ export default {
     AccountItem,
     Footer
   },
-
+  setup() {
+    const userStoreSession = useUserStoreSession();
+    return { userStoreSession };
+  },
   data() {
     return {
       accounts: [],
+      user:'',
     };
   },
 
   mounted() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
+      this.user = user;
       this.getAccount(user.id);
     }
   },
@@ -48,6 +54,8 @@ export default {
         .get('/accounts/customer/' + userid)
         .then((response) => {
           this.accounts = response.data;
+          this.userStoreSession.accounts = response.data;
+          localStorage.setItem('accounts', JSON.stringify(response.data));
         })
         .catch((error) => {
           console.log(error);

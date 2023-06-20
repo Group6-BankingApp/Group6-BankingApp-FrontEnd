@@ -71,10 +71,13 @@ export default {
         userDTO2: JSON.parse(localStorage.getItem('user')),
         pin: '',
       },
+      balance: 0,
     };
   },
   mounted() {
-    
+    const accounts = JSON.parse(localStorage.getItem('accounts'));
+    const account = accounts.find((account) => account.iban === this.$route.params.iban);
+    this.balance = account.balance;
   },
   methods: {
     performTransfer() {
