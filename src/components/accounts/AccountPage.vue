@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div v-if="accounts.length > 0">
-      <h2 class="page-title">{{ accounts[0].user.firstName+" "+accounts[0].user.lastName }}</h2><br><br>
+      <h2 class="page-title">Name: <b>{{ accounts[0].user.firstName+" "+accounts[0].user.lastName }}</b></h2><br><br>
       <div class="account-list">
         <ol class="numbered-list"><br>
           <account-item v-for="account in accounts" :key="account.iban" :account="account" />
@@ -19,6 +19,7 @@
 import AccountItem from './AccountItem.vue';
 import axios from '../../axios-auth.js';
 import Footer from '../../components/Footer.vue';
+import EditAccount from './EditAccount.vue';
 
 export default {
   name: "AccountPage",
@@ -26,7 +27,8 @@ export default {
 
   components: {
     AccountItem,
-    Footer
+    Footer,
+    
   },
 
   data() {
@@ -52,7 +54,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    }
+    },
   }
 };
 </script>

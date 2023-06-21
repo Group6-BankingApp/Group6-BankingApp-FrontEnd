@@ -9,9 +9,15 @@
       <label for="customer-iban" class="atm-label">Customer IBAN:</label>
       <input type="text" id="customer-iban" class="atm-input" v-model="customerIban" />
     </div><br>
-    <div>
-      <b class="atm-balance">Current Balance: {{ balance }}</b>
-    </div><br><br>
+    <div class="atm-info">
+      <label for="pin" class="atm-label">PIN:</label>
+      <input type="password" id="pin" class="atm-input" v-model="pin" />
+    </div><br>
+    <div class="atm-info">
+  <label class="atm-balance-label"> <b>Current Balance: {{balance}} </b></label>
+  <label type="text"  :value="balance"> </label>
+</div>
+    <br><br>
     <div class="atm-actions">
       <label for="amount" class="atm-label">Amount:</label>
       <input type="number" id="amount" class="atm-input" v-model="amount" />
@@ -37,8 +43,9 @@ export default {
     return {
       bankIban: 'NL01INHO0000000001', // The fixed IBAN for the bank
       customerIban: '', 
-      balance: null,
-      amount: 0
+      balance: '',
+      amount:'',
+      pin: ''
     };
   },
   mounted() {
@@ -46,25 +53,25 @@ export default {
   },
   methods: {
     fetchBalance() {
-      const userStore = useUserStoreSession();
+  const userStore = useUserStoreSession();
 
-      const params = {
-        iban: this.bankIban, 
-        //token: userStore.jwt
-      };
-      const headers = {
-        Authorization: userStore.jwt
-      };
+  const params = {
+    iban: this.bankIban,
+    //token: userStore.jwt
+  };
+  const headers = {
+    Authorization: userStore.jwt
+  };
 
-      axios
-        .get('/accounts/balance', { params,headers })
-        .then(response => {
-          this.balance = response.data.balance;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    },
+  axios
+    .get('/accounts/balance', { params, headers })
+    .then(response => {
+      this.balance = response.data.balance;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+},
     promptWithdrawal() {
       const confirmWithdrawal = confirm('Are you sure you want to withdraw?');
       if (confirmWithdrawal) {
@@ -76,12 +83,11 @@ export default {
     withdraw() {
       const isPinRequired = true;
       if (isPinRequired) {
-        const enteredPin = prompt('Enter your PIN:');
-        if (enteredPin) {
+        if (this.pin) {
           const data = {
             iban: this.customerIban,
             amount: this.amount,
-            pin: enteredPin
+            pin: this.pin
           };
           const userStore = useUserStoreSession();
           const headers = {
@@ -168,11 +174,6 @@ export default {
 };
 </script>
 
-
-
-
-  
-  
 <style scoped>
 .atm-card {
   background-color: #bfe9cc;
@@ -181,7 +182,7 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   max-width: 800px;
   margin: 0 auto;
-  height: 600px;
+  height: 750px;
   text-align: center;
   margin-top: 90px;
 }
@@ -233,4 +234,5 @@ export default {
   background-color: #1a862c;
 }
 </style>
+
   
