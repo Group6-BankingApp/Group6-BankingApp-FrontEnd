@@ -16,7 +16,6 @@
     </table>
     <Footer />
   </div>
-  </table>
   <button v-if="selectedUser" @click="createBankAccount">Create Bank Account</button>
 </template>
 
