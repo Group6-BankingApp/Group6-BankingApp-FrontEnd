@@ -5,6 +5,7 @@
     <td>{{ user.email }}</td>
     <td>{{ user.phoneNumber }}</td>
     <td> <button @click="editUser">Edit</button></td>
+    <td> <input type="checkbox" v-model="isSelected" @change="checkboxChanged" /> </td>
   </tr>
 </template>
 
@@ -15,6 +16,25 @@ export default {
     user: {
       type: Object,
       required: true
+    },
+    checked : {
+      type: Boolean,
+      required: true,
+    }
+  },
+  data() {
+    return {
+      isSelected: false,
+    };
+  },
+  watch: {
+    checked: function (val) {
+      this.isSelected = val;
+    }
+  },
+  methods: {
+    checkboxChanged() {
+      this.$emit("user-selected", this.user);
     }
   },
   methods: {

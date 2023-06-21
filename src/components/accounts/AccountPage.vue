@@ -19,7 +19,7 @@
 import AccountItem from './AccountItem.vue';
 import axios from '../../axios-auth.js';
 import Footer from '../../components/Footer.vue';
-import EditAccount from './EditAccount.vue';
+import { useUserStoreSession } from '../../stores/userstoresession';
 
 export default {
   name: "AccountPage",
@@ -30,16 +30,21 @@ export default {
     Footer,
     
   },
-
+  setup() {
+    const userStoreSession = useUserStoreSession();
+    return { userStoreSession };
+  },
   data() {
     return {
       accounts: [],
+      user:'',
     };
   },
 
   mounted() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
+      this.user = user;
       this.getAccount(user.id);
     }
   },
@@ -50,6 +55,8 @@ export default {
         .get('/accounts/customer/' + userid)
         .then((response) => {
           this.accounts = response.data;
+          this.userStoreSession.accounts = response.data;
+          localStorage.setItem('accounts', JSON.stringify(response.data));
         })
         .catch((error) => {
           console.log(error);

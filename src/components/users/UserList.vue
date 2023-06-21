@@ -11,16 +11,20 @@
       </thead>
       <tbody>
         <user-item v-for="user in users" :key="user.id" :user="user" />
+        <user-item v-for="user in users" :key="user.id" :user="user" :checked="user.checked" @user-selected="selectUser" />
       </tbody>
     </table>
     <Footer />
   </div>
+  </table>
+  <button v-if="selectedUser" @click="createBankAccount">Create Bank Account</button>
 </template>
 
 <script>
 import axios from "../../axios-auth.js"
 import UserItem from './UserItem.vue';
 import Footer from '../../components/Footer.vue';
+import { useUserStoreSession } from '../../stores/userstoresession';
 
 export default {
     name: "UserList",
@@ -28,6 +32,7 @@ export default {
     data() {
         return {
             users: [],
+            selectedUser: null,
         };
     },
     components: {
@@ -40,15 +45,34 @@ export default {
     methods: {
         getUser() {
             axios
-                .get('users')
+                .get('users/withoutAccount')
                 .then((response) => {
                     this.users = response.data;
                 })
                 .catch((error) => {
                     console.log(error);
                 });
-        }
-    },
+        },
+        selectUser(user) {
+          for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].id === user.id) {
+              this.users[i].checked = !this.users[i].checked;
+            } else {
+              this.users[i].checked = false;
+            }
+          }
+          for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].checked) {
+              this.selectedUser = this.users[i];
+              return;
+            }
+            this.selectedUser = null;
+          }
+        },
+        createBankAccount() {
+          this.$router.push({ name: 'CreateBankAccount', params: { user: this.selectedUser } });
+        },
+  },
 }
 </script>
 
@@ -61,6 +85,7 @@ export default {
 .user-table {
   width: 100%;
   border-collapse: collapse;
+  padding-left: 10px;
 }
 
 .user-table th,
@@ -68,6 +93,7 @@ export default {
   padding: 8px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  margin-left: 10px;
 }
 
 .user-table th {
