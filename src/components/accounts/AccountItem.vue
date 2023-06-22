@@ -1,11 +1,14 @@
 <template>
-    <div>
-      <h3> {{ account.accountType }} Account</h3>
-      <br>
-      <ul>
-        <li>
-          <p><strong>IBAN:</strong> {{ account.iban }}</p>
-          <!-- <p><strong>First Name:</strong> {{ account.user.firstName }}</p>
+  <div>
+    <h3> {{ account.accountType }} Account</h3>
+    <br>
+    <ul>
+      <!-- <button v-if="showButtons" @click="editAccount">
+      <i class="fas fa-edit"></i> Edit Account
+    </button> -->
+      <li>
+        <p><strong>IBAN:</strong> {{ account.iban }}</p>
+        <!-- <p><strong>First Name:</strong> {{ account.user.firstName }}</p>
           <p><strong>Last Name:</strong> {{ account.user.lastName }}</p>
           <p><strong>Email:</strong> {{ account.user.email }}</p>
           <p><strong>Phone Number:</strong> {{ account.user.phoneNumber }}</p> -->
@@ -22,15 +25,36 @@
       </div>
       <br>
       <hr>
+
     </div>
-  </template>
+    <br><br><br>
+    <hr>
+  </div>
+</template>
   
-  <script>
-  export default {
-    name: "AccountItem",
-    props: {
-      account: Object
+<script>
+export default {
+  name: "AccountItem",
+  props: {
+    account: Object,
+    showButtons: {
+      type: Boolean,
+      default: true
+    }
+  },
+  methods: {
+    viewTransactions() {
+      this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
     },
+    makeTransaction() {
+      this.$router.push({
+        name: 'Transfer', params: {
+          iban: this.account.iban,
+          balance: this.account.balance
+        }
+      });
+    },
+
     methods: {
       viewTransactions() {
         this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
@@ -39,24 +63,35 @@
         this.$router.push({ name: 'Transfer', params: {
             iban: this.account.iban}});
       }
+
     }
-  };
-  </script>
+  }
+};
+</script>
   
-  <style scoped>
-  button {
-    float: right;
-  }
-  h3 {
-    color: #0f642b;
-    text-align: center;
-  }
-  .tranactionButtons {
-    text-align: center;
-  }
-  .tranactionButtons button {
-    margin: 0 10px;
-  }
-  </style>
+<style scoped>
+button {
+  float: right;
+}
+
+h3 {
+  color: #0f642b;
+  text-align: center;
+}
+
+.tranactionButtons {
+  text-align: center;
+}
+
+.tranactionButtons button {
+  margin: 0 20px;
+  padding: 10px 15px;
+  background-color: #0f642b;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}</style>
   
   

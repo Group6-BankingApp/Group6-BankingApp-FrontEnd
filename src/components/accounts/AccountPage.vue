@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div v-if="accounts.length > 0">
-      <h2 class="page-title">{{ user.firstName+" "+ user.lastName }}</h2><br><br>
+      <h2 class="page-title">Name: <b>{{ accounts[0].user.firstName+" "+accounts[0].user.lastName }}</b></h2><br><br>
       <div class="account-list">
         <ol class="numbered-list"><br>
           <account-item v-for="account in accounts" :key="account.iban" :account="account" />
@@ -27,7 +27,8 @@ export default {
 
   components: {
     AccountItem,
-    Footer
+    Footer,
+    
   },
   setup() {
     const userStoreSession = useUserStoreSession();
@@ -61,7 +62,7 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    }
+    },
   }
 };
 </script>
