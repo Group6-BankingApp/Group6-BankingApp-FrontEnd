@@ -58,8 +58,15 @@
         }
       });
     },
-    editAccount() {
-      this.$router.push({ name: 'EditAccount', params: { iban: this.account.iban } });
+
+    methods: {
+      viewTransactions() {
+        this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
+      },
+      makeTransaction() {
+        this.$router.push({ name: 'Transfer', params: {
+            iban: this.account.iban}});
+      }
 
     }
   }

@@ -35,7 +35,7 @@ const router = createRouter({
       { path: '/createbankaccount', component: CreateAccount },
       { path: '/editaccount',  name: 'EditAccount', component: EditAccount },
       { path: '/edituser',  name: 'EditUser', component: EditUser },
-      
+      { path: '/edituser',  name: 'EditUser', component: EditUser },
     ]
   })
   
