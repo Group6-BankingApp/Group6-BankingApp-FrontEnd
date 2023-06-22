@@ -10,7 +10,6 @@
         </tr>
       </thead>
       <tbody>
-        <user-item v-for="user in users" :key="user.id" :user="user" />
         <user-item v-for="user in users" :key="user.id" :user="user" :checked="user.checked" @user-selected="selectUser" />
       </tbody>
     </table>
@@ -46,37 +45,37 @@ export default {
         this.getUser();
     },
     methods: {
-        getUser() {
-            axios
-                .get('users/withoutAccount')
-                .then((response) => {
-                    this.users = response.data;
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
-        selectUser(user) {
-          for (let i = 0; i < this.users.length; i++) {
-            if (this.users[i].id === user.id) {
-              this.users[i].checked = !this.users[i].checked;
-            } else {
-              this.users[i].checked = false;
-            }
+      getUser() {
+          axios
+              .get('users/withoutAccount')
+              .then((response) => {
+                  this.users = response.data;
+              })
+              .catch((error) => {
+                  console.log(error);
+              });
+      },
+      selectUser(user) {
+        for (let i = 0; i < this.users.length; i++) {
+          if (this.users[i].id === user.id) {
+            this.users[i].checked = !this.users[i].checked;
+          } else {
+            this.users[i].checked = false;
           }
-          for (let i = 0; i < this.users.length; i++) {
-            if (this.users[i].checked) {
-              this.selectedUser = this.users[i];
-              return;
-            }
-            this.selectedUser = null;
+        }
+        for (let i = 0; i < this.users.length; i++) {
+          if (this.users[i].checked) {
+            this.selectedUser = this.users[i];
+            return;
           }
-        },
-        createBankAccount() {
-          this.userStoreSession.userToEdit = this.selectedUser;
-          localStorage.setItem('userToEdit', JSON.stringify(this.selectedUser));
-          this.$router.push('/createbankaccount');
-        },
+          this.selectedUser = null;
+        }
+      },
+      createBankAccount() {
+        this.userStoreSession.userToEdit = this.selectedUser;
+        localStorage.setItem('userToEdit', JSON.stringify(this.selectedUser));
+        this.$router.push('/createbankaccount');
+      },
   },
 }
 </script>
