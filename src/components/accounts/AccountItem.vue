@@ -12,7 +12,7 @@
           <p><strong>Card UUID:</strong> {{ account.cardUUID }}</p>
           <p><strong>Balance:</strong> {{ account.balance }}</p>
           <p><strong>Daily Limit:</strong> {{ account.dailyLimit }}</p>
-          <p><strong>Balance:</strong> {{ account.balance }}</p>
+          <p><strong>Transaction Limit :</strong> {{ account.transactionLimit }}</p>
           <p><strong>Absolute Limit:</strong> {{ account.absoluteLimit }}</p>
         </li>
       </ul>
@@ -37,9 +37,7 @@
       },
       makeTransaction() {
         this.$router.push({ name: 'Transfer', params: {
-            iban: this.account.iban, 
-            balance: this.account.balance 
-          }});
+            iban: this.account.iban}});
       }
     }
   };

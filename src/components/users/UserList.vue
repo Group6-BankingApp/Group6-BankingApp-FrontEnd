@@ -24,6 +24,10 @@ import { useUserStoreSession } from '../../stores/userstoresession';
 export default {
     name: "UserList",
     props: {},
+    setup() {
+        const userStoreSession = useUserStoreSession();
+        return { userStoreSession };
+    },
     data() {
         return {
             users: [],
@@ -64,7 +68,9 @@ export default {
           }
         },
         createBankAccount() {
-          this.$router.push({ name: 'CreateBankAccount', params: { user: this.selectedUser } });
+          this.userStoreSession.userToEdit = this.selectedUser;
+          localStorage.setItem('userToEdit', JSON.stringify(this.selectedUser));
+          this.$router.push('/createbankaccount');
         },
   },
 }

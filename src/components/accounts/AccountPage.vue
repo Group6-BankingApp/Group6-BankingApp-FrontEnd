@@ -53,6 +53,7 @@ export default {
       axios
         .get('/accounts/customer/' + userid)
         .then((response) => {
+          console.log(response.data);
           this.accounts = response.data;
           this.userStoreSession.accounts = response.data;
           localStorage.setItem('accounts', JSON.stringify(response.data));
