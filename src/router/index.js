@@ -34,7 +34,8 @@ const router = createRouter({
       { path: '/debitcards', component: DebitCardList },
       { path: '/createbankaccount', component: CreateAccount },
       { path: '/editaccount',  name: 'EditAccount', component: EditAccount },
-      { path: '/edituser',  name: 'EditUser', component: EditUser },  
+      { path: '/edituser',  name: 'EditUser', component: EditUser },
+      { path: '/edituser',  name: 'EditUser', component: EditUser },
     ]
   })
   

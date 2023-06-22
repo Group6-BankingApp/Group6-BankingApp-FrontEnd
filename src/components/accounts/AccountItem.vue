@@ -25,21 +25,25 @@
       </div>
       <br>
       <hr>
-
     </div>
     <br><br><br>
     <hr>
   </div>
 </template>
-  
-<script>
-export default {
-  name: "AccountItem",
-  props: {
-    account: Object,
-    showButtons: {
-      type: Boolean,
-      default: true
+  <script>
+  export default {
+    name: "AccountItem",
+    props: {
+      account: Object
+    },
+    methods: {
+      viewTransactions() {
+        this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
+      },
+      makeTransaction() {
+        this.$router.push({ name: 'Transfer', params: {
+            iban: this.account.iban}});
+      }
     }
   },
   methods: {
