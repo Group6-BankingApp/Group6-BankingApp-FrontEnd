@@ -4,7 +4,6 @@
     <td>{{ user.lastName }}</td>
     <td>{{ user.email }}</td>
     <td>{{ user.phoneNumber }}</td>
-    <td> <button @click="editUser">Edit</button></td>
     <td> <input type="checkbox" v-model="isSelected" @change="checkboxChanged" /> </td>
   </tr>
 </template>
@@ -35,13 +34,11 @@ export default {
   methods: {
     checkboxChanged() {
       this.$emit("user-selected", this.user);
-    }
-  },
-  methods: {
+    },
     editUser() {
       this.$router.push({ name: 'EditUser', params: { user } });
     }
-  }
+  },
 };
 </script>
 

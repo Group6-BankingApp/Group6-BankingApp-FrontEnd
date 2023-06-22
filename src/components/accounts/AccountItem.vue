@@ -2,6 +2,7 @@
   <div>
     <h3> {{ account.accountType }} Account</h3>
     <br>
+    <div>
     <ul>
       <!-- <button v-if="showButtons" @click="editAccount">
       <i class="fas fa-edit"></i> Edit Account
@@ -45,31 +46,6 @@
             iban: this.account.iban}});
       }
     }
-  },
-  methods: {
-    viewTransactions() {
-      this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
-    },
-    makeTransaction() {
-      this.$router.push({
-        name: 'Transfer', params: {
-          iban: this.account.iban,
-          balance: this.account.balance
-        }
-      });
-    },
-
-    methods: {
-      viewTransactions() {
-        this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
-      },
-      makeTransaction() {
-        this.$router.push({ name: 'Transfer', params: {
-            iban: this.account.iban}});
-      }
-
-    }
-  }
 };
 </script>
   
