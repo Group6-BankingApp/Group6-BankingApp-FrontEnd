@@ -56,10 +56,17 @@
 <script>
 import axios from '../../axios-auth.js';
 import Footer from '../../components/Footer.vue';
+import { useUserStoreSession } from '../../stores/userstoresession';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   components: {
     Footer
+  },
+  setup() {
+    const userStoreSession = useUserStoreSession();
+    return { userStoreSession };
   },
   data() {
     return {
@@ -68,14 +75,14 @@ export default {
         receiverIban: '',
         senderIban: this.$route.params.iban,
         timeCreated: '',
-        userDTO2: JSON.parse(localStorage.getItem('user')),
+        userDTO2: this.userStoreSession.user,
         pin: '',
       },
       balance: 0,
     };
   },
   mounted() {
-    const accounts = JSON.parse(localStorage.getItem('accounts'));
+    const accounts = this.userStoreSession.accounts;
     const account = accounts.find((account) => account.iban === this.$route.params.iban);
     this.balance = account.balance;
   },
@@ -88,6 +95,10 @@ export default {
           console.log(response);
           this.$router.push({ name: 'Transactions', params: { iban: this.transactionDTO.senderIban } });
         })
+        .catch((error) => {
+          console.log(error.response.data);
+          toast.error(error.response.data);
+        });
     },
   },
 };
