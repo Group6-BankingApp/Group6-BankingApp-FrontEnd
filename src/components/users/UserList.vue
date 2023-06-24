@@ -7,6 +7,7 @@
           <th>Last Name</th>
           <th>Email</th>
           <th>Phone Number</th>
+          <th>Select</th>
         </tr>
       </thead>
       <tbody>
