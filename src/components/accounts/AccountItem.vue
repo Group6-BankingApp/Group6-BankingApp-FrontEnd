@@ -2,6 +2,7 @@
   <div>
     <h3> {{ account.accountType }} Account</h3>
     <br>
+    <div>
     <ul>
       <!-- <button v-if="showButtons" @click="editAccount">
       <i class="fas fa-edit"></i> Edit Account
@@ -12,49 +13,39 @@
           <p><strong>Last Name:</strong> {{ account.user.lastName }}</p>
           <p><strong>Email:</strong> {{ account.user.email }}</p>
           <p><strong>Phone Number:</strong> {{ account.user.phoneNumber }}</p> -->
-        <p><strong>Card UUID:</strong> {{ account.cardUUID }}</p>
-        <p><strong>Balance:</strong> {{ account.balance }}</p>
-        <p><strong>Daily Limit:</strong> {{ account.dailyLimit }}</p>
-        <p><strong>Balance:</strong> {{ account.balance }}</p>
-        <p><strong>Absolute Limit:</strong> {{ account.absoluteLimit }}</p>
-      </li>
-    </ul>
-    <div class="tranactionButtons">
-      <button v-if="showButtons" @click="viewTransactions">See Transactions</button>
-      <button v-if="showButtons" @click="makeTransaction">Make a Transaction</button>
+          <p><strong>Card UUID:</strong> {{ account.cardUUID }}</p>
+          <p><strong>Balance:</strong> {{ account.balance }}</p>
+          <p><strong>Daily Limit:</strong> {{ account.dailyLimit }}</p>
+          <p><strong>Transaction Limit :</strong> {{ account.transactionLimit }}</p>
+          <p><strong>Absolute Limit:</strong> {{ account.absoluteLimit }}</p>
+        </li>
+      </ul>
+      <div class="tranactionButtons">
+        <button @click="viewTransactions">See Transactions</button>
+        <button @click="makeTransaction">Make a Transaction</button>
+      </div>
+      <br>
+      <hr>
     </div>
     <br><br><br>
     <hr>
   </div>
 </template>
-  
-<script>
-export default {
-  name: "AccountItem",
-  props: {
-    account: Object,
-    showButtons: {
-      type: Boolean,
-      default: true
-    }
-  },
-  methods: {
-    viewTransactions() {
-      this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
+  <script>
+  export default {
+    name: "AccountItem",
+    props: {
+      account: Object
     },
-    makeTransaction() {
-      this.$router.push({
-        name: 'Transfer', params: {
-          iban: this.account.iban,
-          balance: this.account.balance
-        }
-      });
-    },
-    editAccount() {
-      this.$router.push({ name: 'EditAccount', params: { iban: this.account.iban } });
-
+    methods: {
+      viewTransactions() {
+        this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
+      },
+      makeTransaction() {
+        this.$router.push({ name: 'Transfer', params: {
+            iban: this.account.iban}});
+      }
     }
-  }
 };
 </script>
   

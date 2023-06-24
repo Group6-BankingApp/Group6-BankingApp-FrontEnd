@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div v-if="accounts.length > 0">
-      <h2 class="page-title">Name: <b>{{ accounts[0].user.firstName+" "+accounts[0].user.lastName }}</b></h2><br><br>
+      <h2 class="page-title">Name: <b>{{ user.firstName+" "+user.lastName }}</b></h2><br><br>
       <div class="account-list">
         <ol class="numbered-list"><br>
           <account-item v-for="account in accounts" :key="account.iban" :account="account" />
@@ -42,7 +42,7 @@ export default {
   },
 
   mounted() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = this.userStoreSession.user;
     if (user) {
       this.user = user;
       this.getAccount(user.id);
@@ -54,6 +54,7 @@ export default {
       axios
         .get('/accounts/customer/' + userid)
         .then((response) => {
+          console.log(response.data);
           this.accounts = response.data;
           this.userStoreSession.accounts = response.data;
           localStorage.setItem('accounts', JSON.stringify(response.data));

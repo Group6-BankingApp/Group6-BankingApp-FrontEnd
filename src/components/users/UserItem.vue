@@ -36,7 +36,6 @@ export default {
       this.$emit("user-selected", this.user);
     }
   },
-
 };
 </script>
 
