@@ -34,9 +34,6 @@ export default {
   methods: {
     checkboxChanged() {
       this.$emit("user-selected", this.user);
-    },
-    editUser() {
-      this.$router.push({ name: 'EditUser', params: { user } });
     }
   },
 };

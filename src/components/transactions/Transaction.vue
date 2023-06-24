@@ -3,6 +3,8 @@
       <div class="title-container">
       <div class="card filter-card">
         <h2>Transactions</h2> <br><br><br>
+        <pre><i>        Date                  |             Sender              |               Receiver              |        Amount</i></pre>
+        <br><br>
         <div class="card-body">
           <div class="account-list">
             <ol class="numbered-list">
@@ -86,6 +88,11 @@
   h2 {
     color: #0f642b;
     text-align: center;
+  }
+  pre {
+    color: #030303;
+    text-align: center;
+    font-size: 15px;
   }
   </style>
   
