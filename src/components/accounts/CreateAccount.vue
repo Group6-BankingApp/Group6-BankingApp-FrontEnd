@@ -19,12 +19,6 @@
           </div>
           <div class="mb-3">
             <div class="field">
-              <label for="phone">Balance :</label>
-              <input type="text" v-model="account.balance" class="value" />
-            </div>
-          </div>
-          <div class="mb-3">
-            <div class="field">
               <label for="name">Absolute Limit :</label>
               <input type="text" v-model="account.absoluteLimit" class="value" />
             </div>
@@ -77,7 +71,6 @@
                     userId: '',
                     pin: '',
                     dailyLimit: '',
-                    balance: '',
                     absoluteLimit: '',
                     transactionLimit: '',
                 }
@@ -88,7 +81,6 @@
                 return (
                     this.account.pin === "" ||
                     this.account.dailyLimit === "" ||
-                    this.account.balance === "" ||
                     this.account.absoluteLimit === "" ||
                     this.account.transactionLimit === ""
                 );

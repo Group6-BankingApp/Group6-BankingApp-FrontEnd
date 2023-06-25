@@ -7,6 +7,7 @@ export const useUserStoreSession = defineStore("usersession", {
         user: '',
         accounts: [],
         userToEdit: '',
+        atmAccount: '',
     }),
     getters: {
         isAuthenticated: (state) => {state.jwt != ''},
@@ -17,6 +18,7 @@ export const useUserStoreSession = defineStore("usersession", {
             this.user= JSON.parse(localStorage.getItem('user'));
             this.accounts = JSON.parse(localStorage.getItem('accounts'));
             this.userToEdit = JSON.parse(localStorage.getItem('userToEdit'));
+            this.atmAccount = JSON.parse(localStorage.getItem('atmAccount'));
             if (this.jwt != ''  && this.jwt != null) {
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt;
             }
@@ -49,6 +51,7 @@ export const useUserStoreSession = defineStore("usersession", {
             localStorage.removeItem('user');
             localStorage.removeItem('accounts');
             localStorage.removeItem('userToEdit');
+            localStorage.removeItem('atmAccount');
             delete axios.defaults.headers.common['Authorization'];
         },
     }

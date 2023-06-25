@@ -1,5 +1,7 @@
 <template>
   <div class="table-container">
+    <h2>Users Without a Bank Account</h2>
+    <br>
     <table class="user-table">
       <thead>
         <tr>
@@ -7,7 +9,8 @@
           <th>Last Name</th>
           <th>Email</th>
           <th>Phone Number</th>
-          <th>Select</th>
+          <th>Current Account</th>
+          <th>Savings Account</th>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +20,8 @@
     <Footer />
   </div>
   <button v-if="selectedUser" @click="createBankAccount">Create Bank Account</button>
+  
+  <button v-if="selectedUser" @click="editUser">Edit User</button>
 </template>
 
 <script>
