@@ -42,7 +42,7 @@ export default {
   },
 
   mounted() {
-    const user = this.userStoreSession.user;
+    const user = this.userStoreSession.userToEdit;
     if (user) {
       this.user = user;
       this.getAccount(user.id);

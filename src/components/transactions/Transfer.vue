@@ -7,14 +7,6 @@
         <div class="card-content">
           <div class="row">
             <div class="col">
-              <label for="pin">PIN:</label>
-            </div>
-            <div class="col">
-              <input type="password" v-model="transactionDTO.pin" class="value" />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
               <label for="remaining-balance">Balance:</label>
             </div>
             <div class="col">
@@ -75,8 +67,7 @@ export default {
         receiverIban: '',
         senderIban: this.$route.params.iban,
         timeCreated: '',
-        userDTO2: this.userStoreSession.user,
-        pin: '',
+        userDTO2: null,
       },
       balance: 0,
     };
@@ -89,6 +80,11 @@ export default {
   methods: {
     performTransfer() {
       this.transactionDTO.timeCreated = new Date().toISOString();
+      if(this.userStoreSession.user){
+        this.transactionDTO.userDTO2 = this.userStoreSession.user;
+      }else{
+        this.transactionDTO.userDTO2 = this.userStoreSession.userToEdit;
+      }
       axios
         .post('/transactions', this.transactionDTO)
         .then((response) => {
