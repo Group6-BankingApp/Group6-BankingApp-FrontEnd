@@ -46,6 +46,7 @@ export default {
     checkboxChanged() {
       this.$emit("user-selected", this.user);
     },
+
   },
 };
 </script>
