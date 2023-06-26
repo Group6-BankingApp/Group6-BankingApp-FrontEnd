@@ -16,6 +16,8 @@ import DebitCardList from '../components/debitcard/DebitCardList.vue';
 import CreateAccount from '../components/accounts/CreateAccount.vue';
 import EditAccount from '../components/accounts/EditAccount.vue';
 import EditUser from '../components/users/EditUser.vue';
+import UpdatePin from '../components/accounts/UpdatePin.vue';
+
 
 
 const router = createRouter({
@@ -36,6 +38,7 @@ const router = createRouter({
       { path: '/editaccount',  name: 'EditAccount', component: EditAccount },
       { path: '/edituser',  name: 'EditUser', component: EditUser },
       { path: '/edituser',  name: 'EditUser', component: EditUser },
+      { path: '/updatepin/:iban', name: 'UpdatePin', component: UpdatePin },
     ]
   })
   

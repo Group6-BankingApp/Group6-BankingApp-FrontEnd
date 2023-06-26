@@ -23,6 +23,7 @@
       <div class="tranactionButtons">
         <button @click="viewTransactions">See Transactions</button>
         <button @click="makeTransaction">Make a Transaction</button>
+        <button @click="updatePin">Update Pin</button>
       </div>
       <br>
       <hr>
@@ -44,7 +45,10 @@
       makeTransaction() {
         this.$router.push({ name: 'Transfer', params: {
             iban: this.account.iban}});
-      }
+      },
+      updatePin() {
+        this.$router.push({ name: 'UpdatePin', params: { iban: this.account.iban } });
+      },
     }
 };
 </script>
