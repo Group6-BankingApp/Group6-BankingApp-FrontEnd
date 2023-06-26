@@ -8,12 +8,12 @@
             >
           </li>      
           <li class="nav-item">
-            <router-link to="/account" class="nav-link" active-class="active"
+            <router-link to="/myaccounts" class="nav-link" active-class="active"
               >Account</router-link
             >
           </li>
           <li class="nav-item">
-            <router-link to="/atm" class="nav-link" active-class="active"
+            <router-link to="/atmLogin" class="nav-link" active-class="active"
               >ATM</router-link
             >
           </li>

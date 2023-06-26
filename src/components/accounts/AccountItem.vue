@@ -8,35 +8,54 @@
       <i class="fas fa-edit"></i> Edit Account
     </button> -->
       <li>
-        <p><strong>IBAN:</strong> {{ account.iban }}</p>
-        <!-- <p><strong>First Name:</strong> {{ account.user.firstName }}</p>
-          <p><strong>Last Name:</strong> {{ account.user.lastName }}</p>
-          <p><strong>Email:</strong> {{ account.user.email }}</p>
-          <p><strong>Phone Number:</strong> {{ account.user.phoneNumber }}</p> -->
-          <p><strong>Card UUID:</strong> {{ account.cardUUID }}</p>
+          <p><strong>IBAN:</strong> {{ account.iban }}</p>
+          <p v-if="shouldShowDebitCardButton"><strong>Debit Card:</strong> {{ account.cardNumber }}</p>
           <p><strong>Balance:</strong> {{ account.balance }}</p>
-          <p><strong>Daily Limit:</strong> {{ account.dailyLimit }}</p>
-          <p><strong>Transaction Limit :</strong> {{ account.transactionLimit }}</p>
-          <p><strong>Absolute Limit:</strong> {{ account.absoluteLimit }}</p>
+          <p v-if="shouldShowDebitCardButton"><strong>Daily Limit:</strong> {{ account.dailyLimit }}</p>
+          <p v-if="shouldShowDebitCardButton"><strong>Transaction Limit :</strong> {{ account.transactionLimit }}</p>
+          <p v-if="shouldShowDebitCardButton"><strong>Absolute Limit:</strong> {{ account.absoluteLimit }}</p>
+          <p v-if="shouldShowDebitCardButton"><strong>Has Debit Card:</strong> {{ account.hasCard }}</p>
         </li>
       </ul>
+      <br>
       <div class="tranactionButtons">
         <button @click="viewTransactions">See Transactions</button>
         <button @click="makeTransaction">Make a Transaction</button>
         <button @click="updatePin">Update Pin</button>
+        <button v-if="shouldShowDebitCardButton" @click="debitCardButton">{{debitCardButtonText}}</button>
       </div>
       <br>
       <hr>
     </div>
-    <br><br><br>
-    <hr>
+    <br>
   </div>
 </template>
   <script>
+  import axios from '../../axios-auth.js';
+
   export default {
     name: "AccountItem",
     props: {
       account: Object
+    },
+    computed: {
+      shouldShowDebitCardButton() {
+        return this.account.accountType === 'Current';
+      },
+      debitCardButtonText() {
+        return this.account.hasCard =='Yes' ? 'Deactivate DebitCard' : 'Create DebitCard';
+      },
+      debitCardButton() {
+        if (this.debitCardButtonText === "Create DebitCard") {
+        return this.createDebitCard;
+        } 
+        else if (this.debitCardButtonText === "Deactivate DebitCard") {
+          return this.deactivateCreditCard;
+        } 
+        else {
+          return null;
+        }
+      }
     },
     methods: {
       viewTransactions() {
@@ -48,6 +67,25 @@
       },
       updatePin() {
         this.$router.push({ name: 'UpdatePin', params: { iban: this.account.iban } });
+      createDebitCard() {
+        axios
+        .post('accounts/'+ this.account.iban +'/debitcard')
+        .then((response) => {
+          this.$router.go();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      deactivateCreditCard() {
+        axios
+        .put('accounts/'+ this.account.iban +'/deactivateDebitCard/'+ this.account.cardNumber)
+        .then((response) => {
+          this.$router.go();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       },
     }
 };
