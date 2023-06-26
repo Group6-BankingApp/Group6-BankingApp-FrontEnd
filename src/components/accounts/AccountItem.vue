@@ -21,6 +21,7 @@
       <div class="tranactionButtons">
         <button @click="viewTransactions">See Transactions</button>
         <button @click="makeTransaction">Make a Transaction</button>
+        <button @click="updatePin">Update Pin</button>
         <button v-if="shouldShowDebitCardButton" @click="debitCardButton">{{debitCardButtonText}}</button>
       </div>
       <br>
@@ -64,6 +65,8 @@
         this.$router.push({ name: 'Transfer', params: {
             iban: this.account.iban}});
       },
+      updatePin() {
+        this.$router.push({ name: 'UpdatePin', params: { iban: this.account.iban } });
       createDebitCard() {
         axios
         .post('accounts/'+ this.account.iban +'/debitcard')
