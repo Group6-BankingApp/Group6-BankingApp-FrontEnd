@@ -29,6 +29,8 @@
     import Footer from '../../components/Footer.vue';
     import { useUserStoreSession } from '../../stores/userstoresession';
     import axios from '../../axios-auth.js';
+    import { toast } from "vue3-toastify";
+    import "vue3-toastify/dist/index.css";
 
     export default{
         name: 'ATM',
@@ -78,6 +80,7 @@
                     })
                     .catch(error => {
                         console.log(error);
+                        toast.error(error.response.data.detail);
                     });
             }
         }
