@@ -65,6 +65,7 @@ export const useUserStoreSession = defineStore("usersession", {
             localStorage.removeItem('jwt');
             localStorage.removeItem('user');
             localStorage.removeItem('accounts');
+
             localStorage.removeItem('userToEdit');
             localStorage.removeItem('atmAccount');
             localStorage.removeItem('role');

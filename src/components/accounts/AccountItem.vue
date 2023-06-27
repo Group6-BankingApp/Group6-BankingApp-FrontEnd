@@ -35,7 +35,7 @@
     <br>
   </div>
 </template>
-  <script>
+<script>
   import axios from '../../axios-auth.js';
   import { useUserStoreSession } from '../../stores/userstoresession';
 
@@ -134,7 +134,7 @@ h3 {
   background-color: #0f642b;
   color: #fff;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }

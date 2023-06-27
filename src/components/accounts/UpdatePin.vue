@@ -121,7 +121,7 @@ input[type="password"] {
   background-color: #0f642b;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(131, 221, 176, 0.5);
   margin-top: 20px;
