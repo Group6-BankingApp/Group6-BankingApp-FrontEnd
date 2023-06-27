@@ -3,11 +3,8 @@
     <h3> {{ account.accountType }} Account</h3>
     <br>
     <div>
-    <ul>
-      <!-- <button v-if="showButtons" @click="editAccount">
-      <i class="fas fa-edit"></i> Edit Account
-    </button> -->
-      <li>
+      <ul>
+        <li>
           <p><strong>IBAN:</strong> {{ account.iban }}</p>
           <p v-if="shouldShowDebitCardButton"><strong>Debit Card:</strong> {{ account.cardNumber }}</p>
           <p><strong>Balance:</strong> {{ account.balance }}</p>
@@ -18,11 +15,19 @@
         </li>
       </ul>
       <br>
-      <div class="tranactionButtons">
-        <button @click="viewTransactions">See Transactions</button>
-        <button @click="makeTransaction">Make a Transaction</button>
-        <button @click="updatePin">Update Pin</button>
-        <button v-if="shouldShowDebitCardButton" @click="debitCardButton">{{debitCardButtonText}}</button>
+      <div>
+        <div class="tranactionButtons">
+          <button @click="viewTransactions">See Transactions</button>
+          <button @click="makeTransaction">Make a Transaction</button>
+          <button v-if="userStoreSession.isAdmin" @click="deleteAccount">Delete Account</button>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div v-if="shouldShowDebitCardButton && userStoreSession.isAdmin"  class="tranactionButtons">
+          <button @click="updateAccount">Update Account</button>
+          <button @click="debitCardButton"> {{ debitCardButtonText }} </button>
+        </div>
       </div>
       <br>
       <hr>
@@ -32,11 +37,16 @@
 </template>
   <script>
   import axios from '../../axios-auth.js';
+  import { useUserStoreSession } from '../../stores/userstoresession';
 
   export default {
     name: "AccountItem",
     props: {
       account: Object
+    },
+    setup() {
+      const userStoreSession = useUserStoreSession();
+      return { userStoreSession };
     },
     computed: {
       shouldShowDebitCardButton() {
@@ -65,8 +75,11 @@
         this.$router.push({ name: 'Transfer', params: {
             iban: this.account.iban}});
       },
-      updatePin() {
-        this.$router.push({ name: 'UpdatePin', params: { iban: this.account.iban } });
+      updateAccount() {
+        this.userStoreSession.accountToEdit = this.account;
+        localStorage.setItem('accountToEdit', JSON.stringify(this.account));
+        this.$router.push({ name: 'EditAccount'});
+      },
       createDebitCard() {
         axios
         .post('accounts/'+ this.account.iban +'/debitcard')
@@ -87,13 +100,23 @@
           console.log(error);
         });
       },
+      deleteAccount() {
+        axios
+        .delete('accounts/'+ this.account.iban+'/delete')
+        .then((response) => {
+          this.$router.go();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
     }
 };
 </script>
   
 <style scoped>
 button {
-  float: right;
+  float: center;
 }
 
 h3 {
@@ -114,6 +137,7 @@ h3 {
   border-radius: 3px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}</style>
+}
+</style>
   
   

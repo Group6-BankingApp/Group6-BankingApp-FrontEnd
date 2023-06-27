@@ -20,8 +20,7 @@
     <Footer />
   </div>
   <button v-if="selectedUser" @click="createBankAccount">Create Bank Account</button>
-  
-  <button v-if="selectedUser" @click="editUser">Edit User</button>
+  <button v-if="selectedUser" @click="deleteUser">Delete User</button>
 </template>
 
 <script>
@@ -29,6 +28,8 @@ import axios from "../../axios-auth.js"
 import UserItem from './UserItem.vue';
 import Footer from '../../components/Footer.vue';
 import { useUserStoreSession } from '../../stores/userstoresession';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
     name: "UserList",
@@ -81,6 +82,23 @@ export default {
         this.userStoreSession.userToEdit = this.selectedUser;
         localStorage.setItem('userToEdit', JSON.stringify(this.selectedUser));
         this.$router.push('/createbankaccount');
+      },
+      deleteUser() {
+        if(this.selecedtUser===this.userStoreSession.user){
+          toast.error("You cannot delete yourself!");
+        }
+        else{
+          axios
+              .delete('users/' + this.selectedUser.id)
+              .then((response) => {
+                  this.getUser();
+                  toast.success("User deleted!");
+              })
+              .catch((error) => {
+                  console.log(error);
+                  toast.error(error.response.data.message);
+              });
+        }
       },
   },
 }

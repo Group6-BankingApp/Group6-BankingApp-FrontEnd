@@ -38,7 +38,6 @@ const router = createRouter({
       { path: '/createbankaccount', component: CreateAccount },
       { path: '/editaccount',  name: 'EditAccount', component: EditAccount },
       { path: '/edituser',  name: 'EditUser', component: EditUser },
-      { path: '/edituser',  name: 'EditUser', component: EditUser },
       { path: '/updatepin/:iban', name: 'UpdatePin', component: UpdatePin },
       { path: '/atm',  name: 'ATM', component: ATM },
     ]

@@ -32,6 +32,11 @@
               >ATM</router-link
             >
           </li>
+          <li v-if="store.isAuthenticated" class="nav-item">
+            <router-link to="/edituser" class="nav-link" active-class="active"
+              >Profile</router-link
+            >
+          </li>
           <li v-if="store.isAuthenticated" class="nav-item" @click="logout">
               <h7 class="nav-link" active-class="active">Logout</h7>
           </li>

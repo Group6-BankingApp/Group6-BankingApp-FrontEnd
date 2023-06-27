@@ -1,7 +1,6 @@
 <template>
     <div class = "card">
         <h2>Personal details</h2>
-        <form @submit="saveUser">
             <div class="form-field">
                 <label for="firstName">First Name:</label>
                 <input type="text" class="userinput" id="firstName" v-model="editedUser.firstName" />
@@ -17,49 +16,62 @@
             <div class="form-field">
                 <label for="phoneNumber">Phone Number:</label>
                 <input class="userinput" type="tel" id="phoneNumber" v-model="editedUser.phoneNumber" />
-            </div><br><br>
-            <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
-            <button type="submit" class = "savebutton">Save</button>
-        </form>
+            </div>
+            <div>
+                <label for="password">New Password:</label>
+                <input type="password" class="userinput" id="password" v-model="editedUser.password" />
+            </div>
+            <br><br>
+            <button type="submit" class ="savebutton" @click="saveChanges">Save Changes</button>
+        <Footer />
     </div>
 </template>
 
 <script>
 import axios from '../../axios-auth.js';
+import { useUserStoreSession } from '../../stores/userstoresession';
+import Footer from '../Footer.vue';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
     name: 'EditUser',
+    setup() {
+        const userStore = useUserStoreSession();
+        return { userStore };
+    },
     data() {
         return {
             editedUser: {
                 firstName: '',
                 lastName: '',
                 email: '',
+                password: '',
                 phoneNumber: '',
             },
-            successMessage: '',
+            id: '',
         };
     },
     mounted() {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = this.userStore.user;
         if (user) {
-            this.editedUser = { ...user };
+            this.editedUser = user;
+            this.id = user.id;
         }
     },
     methods: {
-        saveUser(event) {
-            event.preventDefault();
-            const userId = this.editedUser.id;
+        saveChanges() {
             axios
-                .put(`/users/${userId}`, this.editedUser)
-                .then((response) => {
-                    this.editedUser = { ...response.data };
-                    this.successMessage = 'User updated successfully';
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        },
+            .put('/users/'+this.id,this.editedUser)
+            .then((response) => {
+                this.userStore.user = response.data;
+                localStorage.setItem('user', JSON.stringify(response.data));
+                this.$router.push('/myaccounts');
+            })
+            .catch((error) => {
+                this.$toast.error(error.response.data.message);
+            });
+        }
     },
 };
 </script>

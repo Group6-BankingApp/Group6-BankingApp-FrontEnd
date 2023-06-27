@@ -39,6 +39,8 @@
 import axios from '../axios-auth';
 import Footer from '../components/Footer.vue';
 import { useUserStoreSession } from '../stores/userstoresession';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   components: {

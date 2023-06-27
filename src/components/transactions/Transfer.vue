@@ -41,6 +41,48 @@
         </div>
       </div>
     </div>
+    <br>
+    <div class="form-container">
+      <div class="card">
+        <div class="card-content">
+          <div class="row">
+            <div class="col">
+              <label for="remaining-balance">First Name:</label>
+            </div>
+            <div class="col">
+              <input type="text" v-model="FullNameDTO.firstName" class="value" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label for="remaining-balance">Last Name:</label>
+            </div>
+            <div class="col">
+              <input type="text" v-model="FullNameDTO.lastName" class="value" />
+            </div>
+          </div>
+        </div>
+
+        <hr />
+       
+
+        <div class="row">
+          <div class="col">
+            <label for="transfer-to">IBAN:</label>
+          </div>
+          <div class="col">
+            <label for="foundiban" class="value">{{ searchedIban }}</label>
+          </div>
+        </div>
+
+
+        <br><br>
+        <div class="transfer-card button">
+          <button @click="searchForUser">Search</button>
+        </div>
+      </div>
+    </div>
+    <br> <br><br>
     <Footer />
   </div>
 </template>
@@ -70,6 +112,11 @@ export default {
         userDTO2: null,
       },
       balance: 0,
+      searchedIban: '',
+      FullNameDTO: {
+        firstName: '',
+        lastName: '',
+      },
     };
   },
   mounted() {
@@ -94,6 +141,19 @@ export default {
         .catch((error) => {
           console.log(error.response.data);
           toast.error(error.response.data);
+        });
+    },
+    searchForUser() {
+      console.log(this.FullNameDTO);
+      axios
+        .post('accounts/customerIban',this.FullNameDTO)
+        .then((response) => {
+          console.log(response);
+          this.searchedIban = response.data;
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+          toast.error(error.response.data.detail);
         });
     },
   },
