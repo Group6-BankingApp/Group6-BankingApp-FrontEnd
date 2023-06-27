@@ -73,7 +73,7 @@ export default {
   border-radius: 4px;
   padding: 50px;
   margin: 0 auto;
-  width: 900px;
+  width: 1400px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   font-size: 20px;
 }

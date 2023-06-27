@@ -3,13 +3,13 @@
     <h3> {{ account.accountType }} Account</h3>
     <br>
     <div>
-    <ul>
-      <!-- <button v-if="showButtons" @click="editAccount">
+      <ul>
+        <!-- <button v-if="showButtons" @click="editAccount">
       <i class="fas fa-edit"></i> Edit Account
     </button> -->
-      <li>
-        <p><strong>IBAN:</strong> {{ account.iban }}</p>
-        <!-- <p><strong>First Name:</strong> {{ account.user.firstName }}</p>
+        <li>
+          <p><strong>IBAN:</strong> {{ account.iban }}</p>
+          <!-- <p><strong>First Name:</strong> {{ account.user.firstName }}</p>
           <p><strong>Last Name:</strong> {{ account.user.lastName }}</p>
           <p><strong>Email:</strong> {{ account.user.email }}</p>
           <p><strong>Phone Number:</strong> {{ account.user.phoneNumber }}</p> -->
@@ -24,6 +24,7 @@
         <button @click="viewTransactions">See Transactions</button>
         <button @click="makeTransaction">Make a Transaction</button>
         <button @click="updatePin">Update Pin</button>
+        <button @click="editDetails">Edit Details</button>
       </div>
       <br>
       <hr>
@@ -32,24 +33,31 @@
     <hr>
   </div>
 </template>
-  <script>
-  export default {
-    name: "AccountItem",
-    props: {
-      account: Object
+<script>
+export default {
+  name: "AccountItem",
+  props: {
+    account: Object
+  },
+  methods: {
+    viewTransactions() {
+      this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
     },
-    methods: {
-      viewTransactions() {
-        this.$router.push({ name: 'Transactions', params: { iban: this.account.iban } });
-      },
-      makeTransaction() {
-        this.$router.push({ name: 'Transfer', params: {
-            iban: this.account.iban}});
-      },
-      updatePin() {
-        this.$router.push({ name: 'UpdatePin', params: { iban: this.account.iban } });
-      },
-    }
+    makeTransaction() {
+      this.$router.push({
+        name: 'Transfer', params: {
+          iban: this.account.iban
+        }
+      });
+    },
+    updatePin() {
+      this.$router.push({ name: 'UpdatePin', params: { iban: this.account.iban } });
+    },
+    editDetails() {
+      this.$router.push({ name: 'EditUser', params: { id: this.account.user.id } });
+    },
+
+  }
 };
 </script>
   
@@ -73,9 +81,10 @@ h3 {
   background-color: #0f642b;
   color: #fff;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}</style>
+}
+</style>
   
   
