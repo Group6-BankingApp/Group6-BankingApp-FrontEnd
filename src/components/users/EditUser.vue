@@ -5,31 +5,6 @@
                 <label for="firstName">First Name:</label>
                 <input type="text" class="userinput" id="firstName" v-model="editedUser.firstName" />
             </div>
-            <div class="col-md-6">
-                <h2>Personal details</h2><br>
-                <form @submit="saveUser">
-                    <div class="form-field">
-                        <label for="firstName">First Name:</label>
-                        <input type="text" class="userinput" id="firstName" v-model="editedUser.firstName" />
-                    </div>
-                    <div class="form-field">
-                        <label for="lastName">Last Name:</label>
-                        <input type="text" class="userinput" id="lastName" v-model="editedUser.lastName" />
-                    </div>
-                    <div class="form-field">
-                        <label for="email">Email:</label>
-                        <input type="email" class="userinput" id="email" v-model="editedUser.email" />
-                    </div>
-                    <div class="form-field">
-                        <label for="phoneNumber">Phone Number:</label>
-                        <input class="userinput" type="tel" id="phoneNumber" v-model="editedUser.phoneNumber" />
-                    </div>
-                    <br><br>
-                    <p v-if="successMessage" class="success-message">{{ successMessage }}</p>
-                    <button type="submit" class="savebutton">Save</button>
-                </form>
-                <br><br><br>
-            </div>
             <div class="form-field">
                 <label for="email">Email:</label>
                 <input type="email" class="userinput" id="email" v-model="editedUser.email" />
