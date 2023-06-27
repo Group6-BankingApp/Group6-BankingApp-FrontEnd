@@ -2,14 +2,29 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <div class="container-fluid">
         
-          <li class="nav-item">
+          <li v-if="!store.isAuthenticated" class="nav-item">
             <router-link to="/" class="nav-link" active-class="active"
               >Home</router-link
             >
+          </li>
+          <li v-if="!store.isAuthenticated" class="nav-item">
+            <router-link to="/register" class="nav-link" active-class="active"
+              >Sign Up</router-link
+            >
           </li>      
-          <li class="nav-item">
+          <li v-if="store.isAuthenticated" class="nav-item">
             <router-link to="/myaccounts" class="nav-link" active-class="active"
               >Account</router-link
+            >
+          </li>
+          <li v-if="store.isAdmin" class="nav-item">
+            <router-link to="/userlist" class="nav-link" active-class="active"
+              >Users Without Account</router-link
+            >
+          </li>
+          <li v-if="store.isAdmin" class="nav-item">
+            <router-link to="/userswithaccount" class="nav-link" active-class="active"
+              >Users With Account</router-link
             >
           </li>
           <li class="nav-item">
@@ -17,22 +32,7 @@
               >ATM</router-link
             >
           </li>
-          <li class="nav-item">
-            <router-link to="/transfer" class="nav-link" active-class="active"
-              >Transfer</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <router-link to="/transactions" class="nav-link" active-class="active"
-              >Transaction</router-link
-            >
-          </li>
-          <li class="nav-item">
-            <router-link to="/debitcards" class="nav-link" active-class="active"
-              >Debit cards</router-link
-            >
-          </li>
-          <li class="nav-item" @click="logout">
+          <li v-if="store.isAuthenticated" class="nav-item" @click="logout">
               <h7 class="nav-link" active-class="active">Logout</h7>
           </li>
        
@@ -42,6 +42,7 @@
   
   <script>
   import { useUserStoreSession } from '../stores/userstoresession';
+  
   export default {
     name: "Navigation",
     setup() {
