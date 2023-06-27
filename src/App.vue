@@ -30,7 +30,7 @@ export default {
     Navigation
   },
   methods: {
-    checkTokenValifity() {
+    checkTokenValifity() { 
       console.log("checkTokenValifity");
       if (this.store.jwt) {
         const decoded = jwtDecode(this.store.jwt);
