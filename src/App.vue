@@ -34,7 +34,6 @@ export default {
       console.log("checkTokenValifity");
       if (this.store.jwt) {
         const decoded = jwtDecode(this.store.jwt);
-        const decodedRole = decoded.auth;
         const exp = decoded.exp;
         if (Date.now() >= exp * 1000) {
           this.store.logout();
