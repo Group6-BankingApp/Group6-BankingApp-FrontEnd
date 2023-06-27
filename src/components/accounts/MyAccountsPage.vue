@@ -1,7 +1,9 @@
 <template>
     <div class="card">
       <div v-if="accounts.length > 0">
-        <h2 class="page-title">Name: <b>{{ user.firstName+" "+user.lastName }}</b></h2><br><br>
+        <h2 class="page-title">Name: <b>{{ user.firstName+" "+user.lastName }}</b></h2>
+        <h4>Total Balance: {{ totalBalance }}</h4>
+        <br><br>
         <div class="account-list">
           <ol class="numbered-list"><br>
             <account-item v-for="account in accounts" :key="account.iban" :account="account" />
@@ -33,6 +35,11 @@
     setup() {
       const userStoreSession = useUserStoreSession();
       return { userStoreSession };
+    },
+    computed: {
+      totalBalance() {
+        return this.accounts.reduce((acc, account) => acc + account.balance, 0);
+      },
     },
     data() {
       return {

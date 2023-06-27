@@ -1,10 +1,9 @@
 <template>
-    <div class="card">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="image-container">
-                    <img src="../../assets/img/personalinfo.jpg" alt="Image" class="img-fluid" />
-                </div>
+    <div class = "card">
+        <h2>Personal details</h2>
+            <div class="form-field">
+                <label for="firstName">First Name:</label>
+                <input type="text" class="userinput" id="firstName" v-model="editedUser.firstName" />
             </div>
             <div class="col-md-6">
                 <h2>Personal details</h2><br>
@@ -31,21 +30,36 @@
                 </form>
                 <br><br><br>
             </div>
-        </div>
-
+            <div class="form-field">
+                <label for="email">Email:</label>
+                <input type="email" class="userinput" id="email" v-model="editedUser.email" />
+            </div>
+            <div class="form-field">
+                <label for="phoneNumber">Phone Number:</label>
+                <input class="userinput" type="tel" id="phoneNumber" v-model="editedUser.phoneNumber" />
+            </div>
+            <div>
+                <label for="password">New Password:</label>
+                <input type="password" class="userinput" id="password" v-model="editedUser.password" />
+            </div>
+            <br><br>
+            <button type="submit" class ="savebutton" @click="saveChanges">Save Changes</button>
         <Footer />
-    </div> <br><br><br>
+    </div>
 </template>
 
 <script>
 import axios from '../../axios-auth.js';
-import Footer from '../../components/Footer.vue';
+import { useUserStoreSession } from '../../stores/userstoresession';
+import Footer from '../Footer.vue';
 import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
     name: 'EditUser',
-    components: {
-        Footer
+    setup() {
+        const userStore = useUserStoreSession();
+        return { userStore };
     },
     data() {
         return {
@@ -53,43 +67,33 @@ export default {
                 firstName: '',
                 lastName: '',
                 email: '',
+                password: '',
                 phoneNumber: '',
             },
-            successMessage: '',
+            id: '',
         };
     },
     mounted() {
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = this.userStore.user;
         if (user) {
-            this.editedUser = { ...user };
+            this.editedUser = user;
+            this.id = user.id;
         }
     },
     methods: {
-        saveUser() {
-      const userId = this.editedUser.id;
-      axios
-        .put('/users/' + userId  , this.editedUser)
-        .then((response) => {
-          this.editedUser.firstName = response.data.firstName;
-          this.editedUser.lastName = response.data.lastName;
-          this.editedUser.email = response.data.email;
-          this.editedUser.phoneNumber = response.data.phoneNumber;
+        saveChanges() {
+            axios
+            .put('/users/'+this.id,this.editedUser)
+            .then((response) => {
+                this.userStore.user = response.data;
+                localStorage.setItem('user', JSON.stringify(response.data));
+                this.$router.push('/myaccounts');
+            })
+            .catch((error) => {
+                this.$toast.error(error.response.data.message);
+            });
+        }
 
-          toast.success("User updated successfully");
-          this.successMessage = 'User updated successfully';
-
-          // Update the user object and localStorage
-          const user = JSON.parse(localStorage.getItem('user'));
-          if (user) {
-            Object.assign(user, this.editedUser);
-            localStorage.setItem('user', JSON.stringify(user));
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          toast.error("Error updating user");
-        });
-        },
     },
 };
 </script>

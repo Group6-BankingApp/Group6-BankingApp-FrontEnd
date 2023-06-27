@@ -20,9 +20,9 @@
       <Footer />
     </div>
     <button v-if="selectedUser" @click="viewBankAccounts">View User Accounts</button>
-    
-    <button v-if="selectedUser" @click="editUser">Edit User</button>
+    <button v-if="selectedUser" @click="deleteUser">Delete User</button>
     <button v-if="selectedUser && selectedUser.hasSavingsAccount === 'No'" @click="createSavingsAccount">Create Savings Account</button>
+    <button v-if="selectedUser && selectedUser.hasCurrentAccount === 'No'" @click="createCurrentAccount">Create Current Account</button>
   </template>
   
   <script>
@@ -30,6 +30,8 @@
   import UserItem from './UserItem.vue';
   import Footer from '../../components/Footer.vue';
   import { useUserStoreSession } from '../../stores/userstoresession';
+  import { toast } from "vue3-toastify";
+  import "vue3-toastify/dist/index.css";
   
   export default {
       name: "UserWithAccountList",
@@ -94,6 +96,29 @@
               console.log(error);
             });
         },
+        createCurrentAccount() {
+          this.userStoreSession.userToEdit = this.selectedUser;
+          localStorage.setItem('userToEdit', JSON.stringify(this.selectedUser));
+          this.$router.push('/createbankaccount');
+        },
+        deleteUser()  {
+          // check is selected user is same as logged in user
+          if(this.selectedUser.id === this.userStoreSession.user.id){
+            toast.error("You cannot delete yourself!");
+          }
+          else{
+            axios
+                .delete('/users/' + this.selectedUser.id)
+                .then((response) => {
+                    this.getUser();
+                    toast.success("User deleted!");
+                })
+                .catch((error) => {
+                    console.log(error);
+                    toast.error(error.response.data.message);
+                });
+          }
+        }
     },
   }
   </script>

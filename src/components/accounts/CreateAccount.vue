@@ -93,7 +93,7 @@
                     .post("/accounts", this.account)
                     .then((response) => {
                         console.log(response);
-                        this.$router.push("/");
+                        this.$router.push("/userswithaccount");
                     })
                     .catch((error) => {
                         console.log(error);

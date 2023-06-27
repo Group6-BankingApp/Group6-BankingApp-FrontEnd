@@ -10,6 +10,7 @@ export const useUserStoreSession = defineStore("usersession", {
         userToEdit: '',
         atmAccount: '',
         role: '',
+        accountToEdit: '',
     }),
     getters: {
         isAuthenticated: (state) => state.jwt != '' && state.jwt !== null,
@@ -23,6 +24,7 @@ export const useUserStoreSession = defineStore("usersession", {
             this.userToEdit = JSON.parse(localStorage.getItem('userToEdit'));
             this.atmAccount = JSON.parse(localStorage.getItem('atmAccount'));
             this.role = localStorage.getItem('role');
+            this.accountToEdit = JSON.parse(localStorage.getItem('accountToEdit'));
             if (this.jwt != ''  && this.jwt != null) {
                 axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.jwt;
             }
@@ -59,6 +61,7 @@ export const useUserStoreSession = defineStore("usersession", {
             this.userToEdit = '';
             this.atmAccount = '';
             this.role = '';
+            this.accountToEdit = '';
             localStorage.removeItem('jwt');
             localStorage.removeItem('user');
             localStorage.removeItem('accounts');
@@ -66,6 +69,7 @@ export const useUserStoreSession = defineStore("usersession", {
             localStorage.removeItem('userToEdit');
             localStorage.removeItem('atmAccount');
             localStorage.removeItem('role');
+            localStorage.removeItem('accountToEdit');
             delete axios.defaults.headers.common['Authorization'];
         },
     }
