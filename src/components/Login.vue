@@ -93,6 +93,7 @@ button {
   border: none;
   cursor: pointer;
   width: 100%;
+  border-radius: 10px;
 }
 
 button:hover {

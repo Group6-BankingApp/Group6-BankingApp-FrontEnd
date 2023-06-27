@@ -3,10 +3,10 @@
     <h3> {{ account.accountType }} Account</h3>
     <br>
     <div>
-    <ul>
-      <!-- <button v-if="showButtons" @click="editAccount">
+      <ul>
+        <button v-if="showButtons" @click="editAccount">
       <i class="fas fa-edit"></i> Edit Account
-    </button> -->
+    </button>
       <li>
           <p><strong>IBAN:</strong> {{ account.iban }}</p>
           <p v-if="shouldShowDebitCardButton"><strong>Debit Card:</strong> {{ account.cardNumber }}</p>
@@ -30,7 +30,7 @@
     <br>
   </div>
 </template>
-  <script>
+<script>
   import axios from '../../axios-auth.js';
 
   export default {
@@ -111,9 +111,10 @@ h3 {
   background-color: #0f642b;
   color: #fff;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}</style>
+}
+</style>
   
   

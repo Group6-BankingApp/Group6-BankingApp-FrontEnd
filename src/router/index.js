@@ -37,8 +37,7 @@ const router = createRouter({
       { path: '/debitcards', component: DebitCardList },
       { path: '/createbankaccount', component: CreateAccount },
       { path: '/editaccount',  name: 'EditAccount', component: EditAccount },
-      { path: '/edituser',  name: 'EditUser', component: EditUser },
-      { path: '/edituser',  name: 'EditUser', component: EditUser },
+      { path: '/edituser/:id', name: 'EditUser', component: EditUser },
       { path: '/updatepin/:iban', name: 'UpdatePin', component: UpdatePin },
       { path: '/atm',  name: 'ATM', component: ATM },
     ]
