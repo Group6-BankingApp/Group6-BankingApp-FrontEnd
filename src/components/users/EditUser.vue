@@ -68,7 +68,7 @@ export default {
         saveUser() {
       const userId = this.editedUser.id;
       axios
-        .put(`/users/${userId}`, this.editedUser)
+        .put('/users/' + userId  , this.editedUser)
         .then((response) => {
           this.editedUser.firstName = response.data.firstName;
           this.editedUser.lastName = response.data.lastName;
