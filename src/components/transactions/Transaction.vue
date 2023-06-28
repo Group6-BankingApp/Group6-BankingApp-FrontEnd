@@ -30,12 +30,13 @@
 
           <label for="account">Account:</label>
           <input type="text" id="account" v-model="filter.account" />
-
-          <label for="fromOrTo">From/To:</label>
-          <input type="text" id="fromOrTo" v-model="filter.fromOrTo" />
-          <br>
-          <button class="applyfilter" @click="submitFilter">Apply Filter</button>
-          <br><br>
+          
+          <select v-model="filter.fromOrTo" class="custom-select">
+            <option value=""> All Transactions </option>
+            <option value="to"> Transactions I Sent </option>
+            <option value="from"> Transactions I Received </option>
+          </select>
+          <button @click="submitFilter">Apply Filter</button>
         </div>
         <br><br><br>
         <Footer />
@@ -45,36 +46,32 @@
   </div>
 </template>
   
-<script>
-import axios from '../../axios-auth.js';
-import Footer from '../../components/Footer.vue';
-import TransactionItem from './TransactionItem.vue';
-
-export default {
-  components: {
-    TransactionItem,
-    Footer
-  },
-  data() {
-    return {
-      transactions: [],
-      filter: {
-        startDate: '',
-        endDate: '',
-        maxAmount: 1000000,
-        minAmount: 0,
-        account: '',
-        fromOrTo: ''
-      },
-      currentDateTime: ''
-    };
-  },
-  mounted() {
-    this.fetchTransactions();
-    setInterval(() => {
-      this.currentDateTime = new Date().toLocaleString();
-    }, 1000);
-  },
+  <script>
+  import axios from '../../axios-auth.js';
+  import Footer from '../../components/Footer.vue';
+  import TransactionItem from './TransactionItem.vue';
+  
+  export default {
+    components: {
+      TransactionItem,
+      Footer
+    },
+    data() {
+      return {
+        transactions: [],
+        filter: {
+          startDate: '',
+          endDate: '',
+          maxAmount: 1000000,
+          minAmount: 0,
+          account: '',
+          fromOrTo: ''
+        },
+      };
+    },
+    mounted() {
+      this.fetchTransactions();
+    },
   methods: {
     fetchTransactions() {
       axios
@@ -93,29 +90,30 @@ export default {
       const maxAmount = this.filter.maxAmount !== '' ? this.filter.maxAmount : 99999999999;
       const minAmount = this.filter.minAmount !== '' ? this.filter.minAmount : 0;
 
-      // Create the filter object with the updated start and end dates
-      const filter = {
-        startDate,
-        endDate,
-        maxAmount,
-        minAmount,
-        account: this.filter.account || '',
-        fromOrTo: this.filter.fromOrTo || ''
-      };
-      console.log(this.filter);
-      axios
-        .post('/transactions/customer/' + this.$route.params.iban + '/filter', filter)
-        .then(response => {
-          this.transactions = response.data;
-        })
-        .catch(error => {
-          console.error(error);
-        });
+        // Create the filter object with the updated start and end dates
+        const filter = {
+          startDate,
+          endDate,
+          maxAmount,
+          minAmount,
+          account: this.filter.account || '',
+          fromOrTo: this.filter.fromOrTo || ''
+        };
+        console.log(this.filter);
+        axios
+          .post('/transactions/customer/'+this.$route.params.iban +'/filter', filter)
+          .then(response => {
+            this.transactions = response.data;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+      },
     }
   }
 };
 </script>
-  
+
 <style scoped>
 .title-container {
   text-align: center;
