@@ -16,27 +16,43 @@
           </div>
         </div>
         <div class="filter-container">
-          <label for="startDate">Start Date:</label>
-          <input type="date" id="startDate" v-model="filter.startDate" />
+          <div class="input-group">
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" v-model="filter.startDate" />
+          </div>
 
-          <label for="endDate">End Date:</label>
-          <input type="date" id="endDate" v-model="filter.endDate" />
+          <div class="input-group">
+            <label for="endDate">End Date:</label>
+            <input type="date" id="endDate" v-model="filter.endDate" />
+          </div>
 
-          <label for="maxAmount">Max Amount:</label>
-          <input type="number" id="maxAmount" v-model="filter.maxAmount" />
+          <div class="input-group">
+            <label for="maxAmount">Max Amount:</label>
+            <input type="number" id="maxAmount" v-model="filter.maxAmount" />
+          </div>
 
-          <label for="minAmount">Min Amount:</label>
-          <input type="number" id="minAmount" v-model="filter.minAmount" />
+          <div class="input-group">
+            <label for="minAmount">Min Amount:</label>
+            <input type="number" id="minAmount" v-model="filter.minAmount" />
+          </div>
 
-          <label for="account">Account:</label>
-          <input type="text" id="account" v-model="filter.account" />
+          <div class="input-group">
+            <label for="account">Account:</label>
+            <input type="text" id="account" v-model="filter.account" />
+          </div>
           
-          <select v-model="filter.fromOrTo" class="custom-select">
-            <option value=""> All Transactions </option>
-            <option value="to"> Transactions I Sent </option>
-            <option value="from"> Transactions I Received </option>
-          </select>
-          <button @click="submitFilter">Apply Filter</button>
+          <div class="input-group">
+            <label for="fromOrTo">From/To:</label>
+            <select v-model="filter.fromOrTo" class="custom-select">
+              <option value=""> All Transactions </option>
+              <option value="to"> Transactions I Sent </option>
+              <option value="from"> Transactions I Received </option>
+            </select>
+          </div>
+
+          <div class="input-group button-container">
+            <button class="applyfilter" @click="submitFilter">Apply Filter</button>
+          </div>
         </div>
         <br><br><br>
         <Footer />
@@ -180,9 +196,64 @@ pre {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   font-weight: normal;
   margin-top: 50px;
+  display: flex;
+  justify-content: center;
 }
 .filter-container {
   margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px groove #6eeb94; */
+  padding: 20px;
+}
+
+input[type="date"],
+input[type="number"],
+input[type="text"],
+select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+input[type="date"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+select {
+  appearance: none;
+  /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23202020' viewBox='0 0 8 8'%3E%3Cpath d='M1.5 2l2.5 3 2.5-3h-5z'/%3E%3C/svg%3E"); */
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 8px 8px;
+  padding-right: 24px;
+}
+.input-group {
+  margin-bottom: 10px;
+  width: 50%;
+  align-items: center;
+  padding-left: 30px;
+  
+}
+
+.input-group label {
+  display: flex;
+  margin-bottom: 5px;
+}
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 </style>
   
