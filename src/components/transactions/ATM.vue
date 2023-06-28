@@ -11,7 +11,7 @@
         </div>
         <div class="atm-info">
             <div class="atm-label">Balance:</div>
-            <div class="atm-value">{{ account.balance }}</div>
+            <div class="atm-value"> € {{ account.balance }}</div>
         </div>
         <div class="atm-info">
             <label for="pin" class="atm-label">Amount:</label>
