@@ -15,7 +15,7 @@
               </div>
           </div>
         </div>
-        <div>
+        <div class="filter-form">
           <label for="startDate">Start Date:</label>
           <input type="date" id="startDate" v-model="filter.startDate" />
 
@@ -30,9 +30,12 @@
 
           <label for="account">Account:</label>
           <input type="text" id="account" v-model="filter.account" />
-
-          <label for="fromOrTo">From/To:</label>
-          <input type="text" id="fromOrTo" v-model="filter.fromOrTo" />
+          
+          <select v-model="filter.fromOrTo" class="custom-select">
+            <option value=""> All Transactions </option>
+            <option value="to"> Transactions I Sent </option>
+            <option value="from"> Transactions I Received </option>
+          </select>
 
           <button @click="submitFilter">Apply Filter</button>
         </div>
@@ -63,7 +66,7 @@
           minAmount: 0,
           account: '',
           fromOrTo: ''
-        }
+        },
       };
     },
     mounted() {
@@ -105,7 +108,7 @@
           .catch(error => {
             console.error(error);
           });
-      }
+      },
     }
   };
   </script>
@@ -151,6 +154,10 @@
     color: #030303;
     text-align: center;
     font-size: 15px;
+  }
+  .custom-select {
+    height: 30px;
+    /* Add any other desired styling */
   }
   </style>
   

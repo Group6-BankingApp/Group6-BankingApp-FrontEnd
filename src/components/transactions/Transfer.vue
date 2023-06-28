@@ -153,6 +153,7 @@ export default {
         })
         .catch((error) => {
           console.log(error.response.data);
+          this.searchedIban = '';
           toast.error(error.response.data.detail);
         });
     },
