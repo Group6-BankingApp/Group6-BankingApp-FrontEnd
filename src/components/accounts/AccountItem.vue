@@ -22,8 +22,6 @@
           <button v-if="userStoreSession.isAdmin" @click="deleteAccount">Delete Account</button>
         </div>
         <br>
-        <br>
-        <br>
         <div v-if="shouldShowDebitCardButton && userStoreSession.isAdmin"  class="tranactionButtons">
           <button @click="updateAccount">Update Account</button>
           <button @click="debitCardButton"> {{ debitCardButtonText }} </button>
@@ -32,7 +30,6 @@
       <br>
       <hr>
     </div>
-    <br>
   </div>
 </template>
 <script>
@@ -137,6 +134,7 @@ h3 {
   border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-weight: normal;
 }
 </style>
   

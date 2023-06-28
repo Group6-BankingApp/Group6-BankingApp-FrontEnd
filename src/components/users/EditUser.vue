@@ -152,6 +152,7 @@ img {
     border-radius: 10px;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-weight: normal;
 }
 
 .savebutton:hover {

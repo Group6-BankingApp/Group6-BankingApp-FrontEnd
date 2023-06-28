@@ -6,13 +6,13 @@
         <ol class="numbered-list"><br>
           <account-item v-for="account in accounts" :key="account.iban" :account="account" />
         </ol> 
-      </div><br><br><br><br>
-    </div>
+      </div>
+    </div> 
     <div v-else>
       <h2 class="page-title">No accounts found</h2>
     </div>
     <Footer />
-  </div>
+  </div> 
 </template>
 
 <script>
