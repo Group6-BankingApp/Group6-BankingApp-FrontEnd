@@ -56,7 +56,6 @@ export default {
     return {
       username: "",
       password: "",
-      errorMessage: ""
     };
   },
   methods: {
@@ -64,7 +63,7 @@ export default {
       this.store
         .login(this.username, this.password)
         .then(() => this.$router.push("/myaccounts"))
-        .catch((error) => (this.errorMessage = error));
+        .catch((message) => (toast.error(message)));
     },
   },
 };

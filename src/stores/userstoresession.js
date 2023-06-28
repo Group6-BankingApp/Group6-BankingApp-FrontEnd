@@ -51,7 +51,7 @@ export const useUserStoreSession = defineStore("usersession", {
                 })
                 .catch(error => {
                     console.log(error);
-                    reject(error.response.data.errorMessage);
+                    reject(error.response.data.message);
                 });
         })},
         logout () {

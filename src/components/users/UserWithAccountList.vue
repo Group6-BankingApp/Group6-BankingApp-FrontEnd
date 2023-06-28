@@ -23,12 +23,12 @@
   <div class="userswithaccount">
     <button class="userbuttons" v-if="selectedUser" @click="viewBankAccounts">View User Accounts</button>
   <button class="userbuttons" v-if="selectedUser" @click="deleteUser">Delete User</button>
-  </div>
-  
   <button class="userbuttons" v-if="selectedUser && selectedUser.hasSavingsAccount === 'No'" @click="createSavingsAccount">Create Savings
     Account</button>
   <button class="userbuttons" v-if="selectedUser && selectedUser.hasCurrentAccount === 'No'" @click="createCurrentAccount">Create Current
     Account</button>
+  </div>
+
 </template>
   
 <script>

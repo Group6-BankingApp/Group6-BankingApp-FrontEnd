@@ -64,6 +64,7 @@
                         this.account = response.data;
                         this.userStoreSession.atmAccount = response.data;
                         localStorage.setItem('atmAccount', JSON.stringify(response.data));
+                        this.AtmTransactionDTO.amount = '';
                     })
                     .catch(error => {
                         console.log(error);
@@ -77,6 +78,7 @@
                         this.account = response.data;
                         this.userStoreSession.atmAccount = response.data;
                         localStorage.setItem('atmAccount', JSON.stringify(response.data));
+                        this.AtmTransactionDTO.amount = '';
                     })
                     .catch(error => {
                         console.log(error);
