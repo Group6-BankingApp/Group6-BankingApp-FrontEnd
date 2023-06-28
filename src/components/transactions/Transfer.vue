@@ -10,10 +10,10 @@
         <div class="card-content">
           <div class="row">
             <div class="col">
-              <label for="remaining-balance">Balance:</label>
+              <label for="remaining-balance">Balance: </label>
             </div>
             <div class="col">
-              <div class="value">{{ balance }}</div>
+              <div class="value"> € {{ balance }}</div>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
       </div>
     </div>
       </div>
-      <!-- izmegu koloni -->
+
       <div class="col-md-6">
         <h3>Search Iban by name 🔎 </h3><br>
         <div class="form-container">
@@ -84,8 +84,6 @@
       </div>
     </div>
       </div>
-
-      <!-- ova e od row zdola -->
     </div>
  
     <Footer />
