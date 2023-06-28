@@ -19,8 +19,10 @@
     </table>
     <Footer />
   </div>
-  <button v-if="selectedUser" @click="createBankAccount">Create Bank Account</button>
-  <button v-if="selectedUser" @click="deleteUser">Delete User</button>
+  <div class="userswithaccount">
+    <button class="userbuttons" v-if="selectedUser" @click="viewBankAccounts">View User Accounts</button>
+  <button class="userbuttons" v-if="selectedUser" @click="deleteUser">Delete User</button>
+  </div>
 </template>
 
 <script>
@@ -151,5 +153,28 @@ export default {
 
 .user-table tbody tr:last-child td {
   border-bottom: none;
+}
+.userbuttons{
+  margin: 0 20px;
+  padding: 10px 15px;
+  background-color: #0f642b;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-weight: normal;
+}
+.userbuttons:hover{
+  background-color: #0f642b;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(247, 240, 240, 0.6);
+}
+.userswithaccount{
+  margin: 0 auto; 
+  padding: 50px 20px; 
+  min-width: 200px; 
+  margin-top: 30px; 
+  text-align: center; 
 }
 </style>
