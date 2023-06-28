@@ -4,7 +4,7 @@
       <h2 class="page-title">Name: <b>{{ user.firstName+" "+user.lastName }}</b></h2><br><br>
       <div class="account-list">
         <ol class="numbered-list"><br>
-          <account-item v-for="account in accounts" :key="account.iban" :account="account" />
+          <account-item v-for="account in sortedAccounts" :key="account.iban" :account="account" />
         </ol> 
       </div>
     </div> 
@@ -12,6 +12,7 @@
       <h2 class="page-title">No accounts found</h2>
     </div>
     <Footer />
+    <div class="datetime">{{ currentDateTime }}</div> 
   </div> 
 </template>
 
@@ -40,13 +41,29 @@ export default {
       user:'',
     };
   },
-
+  computed: {
+    sortedAccounts() {
+      // Sort the accounts based on the accountType
+      return this.accounts.sort((a, b) => {
+        if (a.accountType === "Current" && b.accountType !== "Current") {
+          return -1; // "Current" appears first
+        } else if (a.accountType !== "Current" && b.accountType === "Current") {
+          return 1; // "Current" appears second
+        } else {
+          return 0; // No preference, maintain the original order
+        }
+      });
+    },
+  },
   mounted() {
     const user = this.userStoreSession.userToEdit;
     if (user) {
       this.user = user;
       this.getAccount(user.id);
     }
+    setInterval(() => {
+      this.currentDateTime = new Date().toLocaleString();
+    }, 1000);
   },
 
   methods: {
@@ -92,6 +109,12 @@ export default {
   padding: 0;
   width: 100%; 
 }
-
+.datetime {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #070707;
+}
 
 </style>

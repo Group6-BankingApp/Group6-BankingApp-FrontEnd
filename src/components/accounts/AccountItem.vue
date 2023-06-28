@@ -6,12 +6,13 @@
       <ul>
         <li>
           <p><strong>IBAN:</strong> {{ account.iban }}</p>
-          <p v-if="shouldShowDebitCardButton"><strong>Debit Card:</strong> {{ account.cardNumber }}</p>
-          <p><strong>Balance:</strong> € {{ account.balance }}</p>
+          <p><strong>Balance:</strong> {{ account.balance }}</p>
           <p v-if="shouldShowDebitCardButton"><strong>Daily Limit:</strong> {{ account.dailyLimit }}</p>
           <p v-if="shouldShowDebitCardButton"><strong>Transaction Limit :</strong> {{ account.transactionLimit }}</p>
           <p v-if="shouldShowDebitCardButton"><strong>Absolute Limit:</strong> {{ account.absoluteLimit }}</p>
           <p v-if="shouldShowDebitCardButton"><strong>Has Debit Card:</strong> {{ account.hasCard }}</p>
+          <p v-if="shouldShowDebitCardButton"><strong>Debit Card:</strong> {{ account.cardNumber }}</p>
+          <p v-if="shouldShowDebitCardButton"><strong>Debit Card Public Number:</strong> {{ account.cardPublicNumber }}</p>
         </li>
       </ul>
       <br>

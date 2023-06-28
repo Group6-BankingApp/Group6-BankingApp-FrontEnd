@@ -9,7 +9,7 @@
       <br><br>
       <div class="account-list">
         <ol class="numbered-list"><br>
-          <account-item v-for="account in accounts" :key="account.iban" :account="account" />
+          <account-item v-for="account in sortedAccounts" :key="account.iban" :account="account" />
         </ol>
       </div>
     </div>
@@ -42,6 +42,18 @@ export default {
   computed: {
     totalBalance() {
       return this.accounts.reduce((acc, account) => acc + account.balance, 0);
+    },
+    sortedAccounts() {
+      // Sort the accounts based on the accountType
+      return this.accounts.sort((a, b) => {
+        if (a.accountType === "Current" && b.accountType !== "Current") {
+          return -1; // "Current" appears first
+        } else if (a.accountType !== "Current" && b.accountType === "Current") {
+          return 1; // "Current" appears second
+        } else {
+          return 0; // No preference, maintain the original order
+        }
+      });
     },
   },
   data() {
