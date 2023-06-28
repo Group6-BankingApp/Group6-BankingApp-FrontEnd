@@ -22,7 +22,7 @@
             <button @click="withdraw" class="atm-button" style="float: right;">Withdraw</button>
         </div>
         <Footer />
-  </div>
+  </div><br><br><br><br><br><br><br><br><br><br><br><br>
 </template>
 
 <script>
@@ -95,7 +95,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   max-width: 800px;
   margin: 0 auto;
-  height: 750px;
+  height: 550px;
   text-align: center;
   margin-top: 90px;
 }
@@ -117,7 +117,7 @@
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
 .atm-balance {
@@ -138,9 +138,11 @@
   background-color: #0f642b;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-weight: normal;
+  padding: 15px 40px; 
 }
 
 .atm-button:hover {

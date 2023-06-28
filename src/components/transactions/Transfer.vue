@@ -1,8 +1,11 @@
 <template>
   <div>
     <br /><br />
-    <h2>Transactions and balance</h2><br />
-    <div class="form-container">
+    <h2>Transactions and balance</h2><br><br>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Transfer money 💸</h3><br>
+        <div class="form-container">
       <div class="card">
         <div class="card-content">
           <div class="row">
@@ -33,16 +36,17 @@
             <input type="text" v-model="transactionDTO.receiverIban" class="value" />
           </div>
         </div>
-
-
         <br><br>
         <div class="transfer-card button">
           <button @click="performTransfer">Transfer</button>
         </div>
       </div>
     </div>
-    <br>
-    <div class="form-container">
+      </div>
+      <!-- izmegu koloni -->
+      <div class="col-md-6">
+        <h3>Search Iban by name 🔎 </h3><br>
+        <div class="form-container">
       <div class="card">
         <div class="card-content">
           <div class="row">
@@ -62,10 +66,7 @@
             </div>
           </div>
         </div>
-
-        <hr />
-       
-
+        <hr />  
         <div class="row">
           <div class="col">
             <label for="transfer-to">IBAN:</label>
@@ -82,7 +83,11 @@
         </div>
       </div>
     </div>
-    <br> <br><br>
+      </div>
+
+      <!-- ova e od row zdola -->
+    </div>
+ 
     <Footer />
   </div>
 </template>
@@ -190,17 +195,19 @@ label {
   height: 40px;
 }
 
-h2 {
+h2,h3 {
   color: #0f642b;
   text-align: center;
 }
 
 .card {
   background-color: #bfe9cc;
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 0.5px groove #c4e4cf;
+  width: 600px;
 }
 
 .transfer-card {
@@ -209,7 +216,7 @@ h2 {
 }
 
 .transfer-card button {
-  padding: 8px 16px;
+  padding: 15px 45px;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -217,6 +224,9 @@ h2 {
   background-color: #0f642b;
   margin-top: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: normal;
 }
 
 .transfer-card button:hover {
@@ -231,6 +241,13 @@ h2 {
 
 .col {
   flex: 1;
+}
+.col-md-6 {
+  flex: 1;
+  margin-left: 10px; 
+}
+.col:first-child {
+  flex: 0.5; 
 }
 </style>
 

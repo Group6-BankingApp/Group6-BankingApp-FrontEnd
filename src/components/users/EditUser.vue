@@ -1,26 +1,41 @@
 <template>
-    <div class = "card">
-        <h2>Personal details</h2>
-            <div class="form-field">
-                <label for="firstName">First Name:</label>
-                <input type="text" class="userinput" id="firstName" v-model="editedUser.firstName" />
+    <br>
+    <h2>Edit profile</h2>
+    <div class="card">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="image-container">
+                    <img src="../../assets/img/personalinfo.jpg" alt="Image" class="img-fluid" />
+                </div>
             </div>
-            <div class="form-field">
-                <label for="email">Email:</label>
-                <input type="email" class="userinput" id="email" v-model="editedUser.email" />
+            <div class="col-md-6">
+                <h2>Personal details</h2> <br>
+                <div class="form-field">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" class="userinput" id="firstName" v-model="editedUser.firstName" />
+                </div>
+                <div class="form-field">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" class="userinput" id="lastName" v-model="editedUser.lastName" />
+                </div>
+                <div class="form-field">
+                    <label for="email">Email:</label>
+                    <input type="email" class="userinput" id="email" v-model="editedUser.email" />
+                </div>
+                <div class="form-field">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input class="userinput" type="tel" id="phoneNumber" v-model="editedUser.phoneNumber" />
+                </div>
+                <div>
+                    <label for="password">New Password:</label>
+                    <input type="password" class="userinput" id="password" v-model="editedUser.password" />
+                </div>
+                <br><br>
+                <button type="submit" class="savebutton" @click="saveChanges">Save Changes</button>
             </div>
-            <div class="form-field">
-                <label for="phoneNumber">Phone Number:</label>
-                <input class="userinput" type="tel" id="phoneNumber" v-model="editedUser.phoneNumber" />
-            </div>
-            <div>
-                <label for="password">New Password:</label>
-                <input type="password" class="userinput" id="password" v-model="editedUser.password" />
-            </div>
-            <br><br>
-            <button type="submit" class ="savebutton" @click="saveChanges">Save Changes</button>
+        </div>
         <Footer />
-    </div>
+    </div><br><br><br><br><br><br><br>
 </template>
 
 <script>
@@ -32,6 +47,9 @@ import "vue3-toastify/dist/index.css";
 
 export default {
     name: 'EditUser',
+    components: {
+        Footer
+    },
     setup() {
         const userStore = useUserStoreSession();
         return { userStore };
@@ -58,15 +76,15 @@ export default {
     methods: {
         saveChanges() {
             axios
-            .put('/users/'+this.id,this.editedUser)
-            .then((response) => {
-                this.userStore.user = response.data;
-                localStorage.setItem('user', JSON.stringify(response.data));
-                this.$router.push('/myaccounts');
-            })
-            .catch((error) => {
-                this.$toast.error(error.response.data.message);
-            });
+                .put('/users/' + this.id, this.editedUser)
+                .then((response) => {
+                    this.userStore.user = response.data;
+                    localStorage.setItem('user', JSON.stringify(response.data));
+                    this.$router.push('/myaccounts');
+                })
+                .catch((error) => {
+                    this.$toast.error(error.response.data.message);
+                });
         }
 
     },
@@ -121,12 +139,12 @@ export default {
 
 img {
     max-width: 100%;
-    height: 500px;
+    height: 550px;
     border-radius: 20px;
 }
 
 .savebutton {
-    padding: 20px 70px;
+    padding: 15px 70px;
     font-size: 20px;
     background-color: #0f642b;
     color: #fff;
@@ -134,6 +152,7 @@ img {
     border-radius: 10px;
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-weight: normal;
 }
 
 .savebutton:hover {

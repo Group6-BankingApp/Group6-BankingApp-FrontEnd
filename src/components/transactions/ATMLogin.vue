@@ -1,6 +1,6 @@
 <template>
   <div class="atm-card">
-    <h2 class="atm-title">Deposit/Withdraw</h2><br><br>
+    <h2 class="atm-title">Deposit/Withdraw 🏧</h2><br><br>
     <div class="atm-info">
       <label for="iban" class="atm-label">Card UUID:</label>
       <input type="text" id="iban" class="atm-input" v-model="AtmDTO.cardUUID" />
@@ -15,7 +15,7 @@
       <button @click="atmLogin" class="atm-button" style="float: center;">Confirm your Input</button>
     </div>
     <Footer />
-  </div>
+  </div><br><br><br><br>
 </template>
 
 <script>
@@ -65,7 +65,7 @@ export default {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   max-width: 800px;
   margin: 0 auto;
-  height: 750px;
+  height: 450px;
   text-align: center;
   margin-top: 90px;
 }
@@ -108,9 +108,11 @@ export default {
   background-color: #0f642b;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  font-weight: normal;
+  padding: 15px 30px; 
 }
 
 .atm-button:hover {

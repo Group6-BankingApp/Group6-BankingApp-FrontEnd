@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3> {{ transaction.timeCreated }}  {{ transaction.senderIban }}  {{ transaction.receiverIban }}  {{ transaction.amount }}</h3>
+        <h3> <pre>{{ transaction.timeCreated }}  {{ transaction.senderIban }}  {{ transaction.receiverIban }}  €{{ transaction.amount }}</pre> </h3>
         <br>
         <hr>
     </div>

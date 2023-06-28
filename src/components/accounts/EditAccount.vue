@@ -8,8 +8,8 @@
       <div class="col-md-12">
         <div class="mb-3">
           <div class="field">
-            <label for="email">Pin :</label>
-            <input type="email" v-model="accountDTO.pin" class="value" />
+            <label for="text">Pin :</label>
+            <input type="number" v-model="accountDTO.pin" class="value" maxlength="4" minlength="4" inputmode="numeric" />
           </div>
         </div>
         <div class="mb-3">
@@ -56,6 +56,7 @@
   import Footer from "../Footer.vue";
   import { useUserStoreSession } from "../../stores/userstoresession";
   import axios from "../../axios-auth.js";
+  import { toast } from "vue3-toastify";
   
   export default {
     name: 'EditAccount',
@@ -93,10 +94,15 @@
           .put("/accounts/update", this.accountDTO)
           .then((response) => {
             console.log(response.data);
-            this.$router.push("/myaccounts");
+            toast.success("Updated successfully");
+            setTimeout(() => {
+              this.$router.push("/myaccounts");
+          }, 2500);
+            
           })
           .catch((error) => {
             console.log(error);
+            toast.error(error.response.data);
           });
       },
   },
