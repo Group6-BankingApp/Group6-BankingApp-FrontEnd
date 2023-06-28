@@ -35,6 +35,8 @@
 <script>
   import axios from '../../axios-auth.js';
   import { useUserStoreSession } from '../../stores/userstoresession';
+  import { toast } from "vue3-toastify";
+  import "vue3-toastify/dist/index.css";
 
   export default {
     name: "AccountItem",
@@ -84,6 +86,7 @@
           this.$router.go();
         })
         .catch((error) => {
+          toast.error(error.response.data.message);
           console.log(error);
         });
       },
@@ -94,6 +97,7 @@
           this.$router.go();
         })
         .catch((error) => {
+          toast.error(error.response.data.message);
           console.log(error);
         });
       },
@@ -105,6 +109,7 @@
         })
         .catch((error) => {
           console.log(error);
+          toast.error(error.response.data.message);
         });
       }
     }

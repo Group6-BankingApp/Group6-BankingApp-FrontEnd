@@ -20,7 +20,7 @@
     <Footer />
   </div>
   <div class="userswithaccount">
-    <button class="userbuttons" v-if="selectedUser" @click="viewBankAccounts">View User Accounts</button>
+    <button class="userbuttons" v-if="selectedUser" @click="createBankAccount">Create Bank Account</button>
   <button class="userbuttons" v-if="selectedUser" @click="deleteUser">Delete User</button>
   </div>
 </template>

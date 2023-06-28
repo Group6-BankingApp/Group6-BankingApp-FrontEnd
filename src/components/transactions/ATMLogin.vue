@@ -22,6 +22,8 @@
 import axios from '../../axios-auth.js';
 import Footer from '../../components/Footer.vue';
 import { useUserStoreSession } from '../../stores/userstoresession';
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 export default {
   components: {
@@ -51,6 +53,7 @@ export default {
         })
         .catch(error => {
           console.log(error);
+          toast.error("Wrong Card UUID or PIN");
         });
     }
   }
