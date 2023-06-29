@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="image-container">
-                    <img src="../../assets/img/personalinfo.jpg" alt="Image" class="img-fluid" />
+                    <img :src="image" alt="Image" class="img-fluid" />
                 </div>
             </div>
             <div class="col-md-6">
@@ -44,6 +44,7 @@ import { useUserStoreSession } from '../../stores/userstoresession';
 import Footer from '../Footer.vue';
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import debitCardImage from '@/assets/img/personalinfo.jpg';
 
 export default {
     name: 'EditUser',
@@ -64,6 +65,7 @@ export default {
                 phoneNumber: '',
             },
             id: '',
+            image: debitCardImage,
         };
     },
     mounted() {
