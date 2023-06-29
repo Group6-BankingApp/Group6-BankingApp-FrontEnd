@@ -70,6 +70,7 @@ export default {
         const user = this.userStore.user;
         if (user) {
             this.editedUser = user;
+            this.editedUser.password = '';
             this.id = user.id;
         }
     },
@@ -85,7 +86,8 @@ export default {
                 .catch((error) => {
                     this.$toast.error(error.response.data.message);
                 });
-        }
+        },
+        
 
     },
 };
