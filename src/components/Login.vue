@@ -6,7 +6,7 @@
      
       <div class="row">
         <div class="col-md-6">
-          <img src="src/assets/img/debitcard.jpg" alt="Image" class="img-fluid" />
+          <img :src="image" alt="Image" class="img-fluid" />
         </div>
       </div>
       <div class="row">
@@ -41,6 +41,7 @@ import Footer from '../components/Footer.vue';
 import { useUserStoreSession } from '../stores/userstoresession';
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import debitCardImage from '@/assets/img/debitcard.jpg';
 
 export default {
   components: {
@@ -56,6 +57,7 @@ export default {
     return {
       username: "",
       password: "",
+      image : debitCardImage
     };
   },
   methods: {
