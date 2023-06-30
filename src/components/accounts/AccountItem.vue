@@ -84,7 +84,7 @@
         axios
         .post('accounts/'+ this.account.iban +'/debitcard')
         .then((response) => {
-          this.$router.push({ name: 'Accounts' });
+          this.$router.push({ name: 'UserWithAccountList' });
         })
         .catch((error) => {
           toast.error(error.response.data.message);
@@ -100,7 +100,7 @@
           cardNumber: this.account.cardNumber
         })
         .then((response) => {
-          this.$router.push({ ...this.$route });
+          this.$router.push({ name: 'UserWithAccountList' });
         })
         .catch((error) => {
           toast.error(error.response.data.message);
@@ -111,7 +111,7 @@
         axios
         .delete('accounts/'+ this.account.iban+'/delete')
         .then((response) => {
-          this.$router.push({ ...this.$route });
+          this.$router.push({ name: 'UserWithAccountList' });
         })
         .catch((error) => {
           console.log(error);
