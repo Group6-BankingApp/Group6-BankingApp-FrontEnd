@@ -43,7 +43,10 @@
     name: "AccountItem",
     props: {
       account: Object,
-      redirectPath: String,
+      redirectPath: {
+        type: String,
+        default: '/myaccounts'
+      }
     },
     setup() {
       const userStoreSession = useUserStoreSession();
