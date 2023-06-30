@@ -9,7 +9,7 @@
       <br><br>
       <div class="account-list">
         <ol class="numbered-list"><br>
-          <account-item v-for="account in sortedAccounts" :key="account.iban" :account="account" />
+          <account-item :redirectPath="'/myaccounts'" v-for="account in sortedAccounts" :key="account.iban" :account="account" />
         </ol>
       </div>
     </div>

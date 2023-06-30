@@ -42,7 +42,8 @@
   export default {
     name: "AccountItem",
     props: {
-      account: Object
+      account: Object,
+      redirectPath: String,
     },
     setup() {
       const userStoreSession = useUserStoreSession();
@@ -84,7 +85,7 @@
         axios
         .post('accounts/'+ this.account.iban +'/debitcard')
         .then((response) => {
-          this.$router.push('/userswithaccount');
+          this.$router.push(this.redirectPath);
         })
         .catch((error) => {
           toast.error(error.response.data.message);
@@ -99,7 +100,7 @@
     
         })
         .then((response) => {
-          this.$router.push('/userswithaccount');
+          this.$router.push(this.redirectPath);
         })
         .catch((error) => {
           toast.error(error.response.data.message);
@@ -110,7 +111,7 @@
         axios
         .delete('accounts/'+ this.account.iban+'/delete')
         .then((response) => {
-          this.$router.push('/userswithaccount');
+          this.$router.push(this.redirectPath);
         })
         .catch((error) => {
           console.log(error);

@@ -4,7 +4,7 @@
       <h2 class="page-title">Name: <b>{{ user.firstName+" "+user.lastName }}</b></h2><br><br>
       <div class="account-list">
         <ol class="numbered-list"><br>
-          <account-item v-for="account in sortedAccounts" :key="account.iban" :account="account" />
+          <account-item :redirectPath="'/account'" v-for="account in sortedAccounts" :key="account.iban" :account="account" />
         </ol> 
       </div>
     </div> 
