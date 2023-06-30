@@ -95,7 +95,10 @@
         console.log('IBAN:', this.account.iban);
         console.log('Card Number:', this.account.cardNumber);
         axios
-        .put('accounts/'+ this.account.iban +'/deactivateDebitCard/'+ this.account.cardNumber)
+        .put('accounts/{iban}/deactivateDebitCard/{cardNumber}',{
+          iban: this.account.iban,
+          cardNumber: this.account.cardNumber
+        })
         .then((response) => {
           this.$router.go();
         })
