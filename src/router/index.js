@@ -11,7 +11,6 @@ import UserWithAccountList from '../components/users/UserWithAccountList.vue'
 import AccountList from '../components/accounts/AccountList.vue';
 import ATMLogin from '../components/transactions/ATMLogin.vue';
 import Transaction from '../components/transactions/Transaction.vue';
-import DebitCardList from '../components/debitcard/DebitCardList.vue';
 import CreateAccount from '../components/accounts/CreateAccount.vue';
 import EditAccount from '../components/accounts/EditAccount.vue';
 import EditUser from '../components/users/EditUser.vue';
@@ -34,7 +33,6 @@ const router = createRouter({
       { path: '/accounts', component: AccountList },
       { path: '/atmLogin', component: ATMLogin },
       { path: '/transactions/:iban', name: 'Transactions', component: Transaction },  
-      { path: '/debitcards', component: DebitCardList },
       { path: '/createbankaccount', component: CreateAccount },
       { path: '/editaccount',  name: 'EditAccount', component: EditAccount },
       { path: '/edituser',  name: 'EditUser', component: EditUser },
