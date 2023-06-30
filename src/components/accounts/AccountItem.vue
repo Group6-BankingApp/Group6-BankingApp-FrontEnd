@@ -92,6 +92,8 @@
         });
       },
       deactivateCreditCard() {
+        console.log('IBAN:', this.account.iban);
+        console.log('Card Number:', this.account.cardNumber);
         axios
         .put('accounts/'+ this.account.iban +'/deactivateDebitCard/'+ this.account.cardNumber)
         .then((response) => {
