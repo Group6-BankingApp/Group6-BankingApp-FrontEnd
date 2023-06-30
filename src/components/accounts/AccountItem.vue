@@ -88,7 +88,7 @@
         axios
         .post('accounts/'+ this.account.iban +'/debitcard')
         .then((response) => {
-          this.$router.push(this.redirectPath);
+          this.$router.push('/${this.redirectPath}');
         })
         .catch((error) => {
           toast.error(error.response.data.message);
@@ -96,7 +96,6 @@
         });
       },
       deactivateCreditCard() {
-        console.log(this.redirectPath);
         console.log('IBAN:', this.account.iban);
         console.log('Card Number:', this.account.cardNumber);
         axios
@@ -104,7 +103,7 @@
     
         })
         .then((response) => {
-          this.$router.push(this.redirectPath);
+          this.$router.push('/${this.redirectPath}');
         })
         .catch((error) => {
           toast.error(error.response.data.message);
